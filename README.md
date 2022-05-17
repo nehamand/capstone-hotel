@@ -1,2 +1,3 @@
 # capstone-hotel
-An API for hotel services. 
+
+An API for hotel services.
