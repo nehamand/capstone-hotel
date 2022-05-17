@@ -4,6 +4,7 @@ import createEmployeeService from "../../services/employees/createEmployee.servi
 import deleteEmployeeService from "../../services/employees/deleteEmployee.service"
 import getAllEmployees from "../../services/employees/getAllEmployees.service"
 import getOneEmployeeService from "../../services/employees/getOneEmployee.service"
+import updateEmployeeService from "../../services/employees/updateEmployee.service"
 
 class employeeControllers {
   static async store(req: Request, res: Response) {
@@ -31,7 +32,22 @@ class employeeControllers {
 
     return res.status(200).json(employee)
   }
-  static async update(req: Request, res: Response) {}
+  static async update(req: Request, res: Response) {
+    const { id } = req.params
+    const { name, password, admin, status } = req.body
+
+    const employeeUpdated = await updateEmployeeService(
+      id,
+      name,
+      password,
+      admin,
+      status
+    )
+
+    return res
+      .status(201)
+      .json({ message: "Employee updated", employee: employeeUpdated })
+  }
   static async delete(req: Request, res: Response) {
     const { id } = req.params
     const employeeRes = await deleteEmployeeService(id)
