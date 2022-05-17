@@ -16,8 +16,8 @@ const createEmployeeService = async ({
   name,
   cpf,
   password,
-  admin = false,
-  status = true,
+  admin,
+  status,
 }: ICreateEmployee) => {
   const employeeRepository = AppDataSource.getRepository(Employee)
   const cpfExists = await employeeRepository.findOne({ where: { cpf } })
@@ -43,14 +43,22 @@ const createEmployeeService = async ({
   newEmployee.cpf = cpf
   newEmployee.password = bcrypt.hashSync(password, 10)
   newEmployee.admin = admin
-  newEmployee.created_at = new Date()
-  newEmployee.updated_at = new Date()
   newEmployee.status = status
 
   employeeRepository.create(newEmployee)
   await employeeRepository.save(newEmployee)
 
-  return newEmployee
+  const employeeToShow = {
+    id: newEmployee.id,
+    name: newEmployee.name,
+    cpf: newEmployee.cpf,
+    admin: newEmployee.admin,
+    status: newEmployee.status,
+    created_at: newEmployee.created_at,
+    updated_at: newEmployee.updated_at,
+  }
+
+  return employeeToShow
 }
 
 export default createEmployeeService
