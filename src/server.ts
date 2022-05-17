@@ -7,6 +7,6 @@ import {AppDataSource} from "./data-source"
   )
 
   app.listen(process.env.PORT || 3333, () => {
-    console.log("Running at 3333")
+    console.log(`Running at ${process.env.PORT || 3333}`)
   })
 })()
