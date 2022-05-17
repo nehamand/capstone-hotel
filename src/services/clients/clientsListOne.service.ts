@@ -6,7 +6,7 @@ const listOneClient = async (id:string) =>{
     
     const clientRepository = AppDataSource.getRepository(Client);
 
-    const client = await clientRepository.find({where:{id}});
+    const client = await clientRepository.findOne({where:{id}});
 
     if (!client) {
         throw new AppError("client not found", 400);

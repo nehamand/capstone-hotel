@@ -18,18 +18,19 @@ export default class ClientsController{
         return res.status(200).json(client);
     };
     static show = async (req: Request, res: Response)=>{
-        const client = await listClient();
+        const status = req.query.status || "true"
+        const client = await listClient(status as string);
         return res.status(200).json(client);
     };
     static update = async (req: Request, res: Response)=>{
         const {id} = req.params;
-        const {name, birthDate, cpf, cellphone, status} = req.body;
-        const client = await updateClient(id,{name, birthDate, cpf, cellphone, status});
+        const {name, birthDate, cpf, cellphone} = req.body;
+        const client = await updateClient(id,{name, birthDate, cpf, cellphone});
         return res.status(201).json(client);
     };
     static delete = async (req: Request, res: Response)=>{
         const {id} = req.params;
         const client = await deleteClient(id);
-        return res.status(201).json(client);
+        return res.status(200).json(client);
     };
 }
