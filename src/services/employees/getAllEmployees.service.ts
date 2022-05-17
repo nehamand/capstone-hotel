@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../data-source"
 import Employee from "../../models/Employees"
 
-const getAllEmployees = async () => {
+const getAllEmployees = async (status: string) => {
   const employeesRepository = AppDataSource.getRepository(Employee)
   const employees = await employeesRepository.find()
 
@@ -18,7 +18,7 @@ const getAllEmployees = async () => {
   })
 
   const employeesActive = employeesToShow.filter(
-    (employee) => employee.status === true
+    (employee) => employee.status.toString() === status
   )
   return employeesActive
 }

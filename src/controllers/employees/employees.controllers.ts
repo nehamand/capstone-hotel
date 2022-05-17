@@ -21,7 +21,9 @@ class employeeControllers {
     return res.status(201).json(newUser)
   }
   static async index(req: Request, res: Response) {
-    const employees = await getAllEmployees()
+    const status = req.query.status || "true"
+
+    const employees = await getAllEmployees(status as string)
 
     return res.status(200).json(employees)
   }
