@@ -1,53 +1,55 @@
 import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-} from "typeorm";
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm"
+import {boolean} from "yup"
 
-import Bedroom from "./Bedrooms";
-import HiredServices from "./HiredServices";
+import Bedroom from "./Bedrooms"
+import HiredServices from "./HiredServices"
 
 @Entity("clients")
-  class Client {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
-  
-    @Column({ length: 128 })
-    name: string;
-  
-    @Column()
-    email: string;
+class Client {
+  @PrimaryGeneratedColumn("uuid")
+  id: string
 
-    @Column({ unique: true, length: 11 })
-    cpf: string;
+  @Column({length: 128})
+  name: string
 
-    @Column()
-    birthDate: Date;
+  @Column()
+  email: string
 
-    @Column({ unique: true, length: 11 })
-    cellphone: string;
+  @Column({unique: true, length: 11})
+  cpf: string
 
-    
-    // relacionamento N:N clientes e serviços -- cliente como donos
-    @OneToMany(() => HiredServices, (hiredServices) => hiredServices.clients, {
-      eager: true,
-    })
-    clients: HiredServices[];
+  @Column()
+  birthDate: Date
 
-    // relacionamento 1:N - quartos e clientes
-    @ManyToOne(type => Bedroom, bedroom => bedroom.clients)
-    bedroom: Client
-  
-    @CreateDateColumn()
-    created_at: Date;
-  
-    @UpdateDateColumn()
-    updated_at: Date;
-  }
-  
-  export default Client;
-  
+  @Column({unique: true, length: 11})
+  cellphone: string
+
+  // relacionamento N:N clientes e serviços -- cliente como donos
+  @OneToMany(() => HiredServices, (hiredServices) => hiredServices.clients, {
+    eager: true,
+  })
+  clients: HiredServices[]
+
+  // relacionamento 1:N - quartos e clientes
+  @ManyToOne((type) => Bedroom, (bedroom) => bedroom.clients)
+  bedroom: Client
+
+  @CreateDateColumn()
+  created_at: Date
+
+  @UpdateDateColumn()
+  updated_at: Date
+
+  @Column({default: true})
+  status: boolean
+}
+
+export default Client

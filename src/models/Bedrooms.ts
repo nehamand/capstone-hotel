@@ -1,44 +1,47 @@
 import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    JoinTable,
-    OneToMany,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-} from "typeorm";
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm"
 
-import Client from "./Clients";
+import Client from "./Clients"
 
 @Entity("bedrooms")
-  class Bedroom {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+class Bedroom {
+  @PrimaryGeneratedColumn("uuid")
+  id: string
 
-    // relacionamento 1:N - quartos e clientes
-    @OneToMany(() => Client, (client) => client.bedroom, {
-      eager: true,
-    })@JoinTable()
-    clients: Client;
+  // relacionamento 1:N - quartos e clientes
+  @OneToMany(() => Client, (client) => client.bedroom, {
+    eager: true,
+  })
+  @JoinTable()
+  clients: Client
 
-    @Column({ length: 4 })
-    number: string;
+  @Column({length: 4})
+  number: string
 
-    @Column({ length: 3 })
-    floor: string;
-    
-    @Column({ type: "integer" })
-    capacity: string;
+  @Column({length: 3})
+  floor: string
 
-    @Column({ default: true })
-    availability: boolean;
-  
-    @CreateDateColumn()
-    created_at: Date;
-  
-    @UpdateDateColumn()
-    updated_at: Date;
-  }
-  
-  export default Bedroom;
-  
+  @Column({type: "integer"})
+  capacity: number
+
+  @Column({default: true})
+  availability: boolean
+
+  @CreateDateColumn()
+  created_at: Date
+
+  @UpdateDateColumn()
+  updated_at: Date
+
+  @Column({default: true})
+  status: boolean
+}
+
+export default Bedroom

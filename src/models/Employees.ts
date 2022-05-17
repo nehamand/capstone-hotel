@@ -2,28 +2,32 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
 
-@Entity("services")
-class Service {
+import {Exclude} from "class-transformer"
+
+@Entity("employees")
+class Employee {
   @PrimaryGeneratedColumn("uuid")
   id: string
 
   @Column({length: 128})
   name: string
 
-  @Column({
-    type: "decimal",
-    precision: 10,
-    scale: 2,
-  })
-  price: number
+  // @Column()
+  // email: string;
 
-  @Column({length: 256})
-  description: string
+  @Column({unique: true, length: 11})
+  cpf: string
+
+  @Exclude()
+  @Column()
+  password: string
+
+  @Column({default: false})
+  admin: boolean
 
   @CreateDateColumn()
   created_at: Date
@@ -35,4 +39,4 @@ class Service {
   status: boolean
 }
 
-export default Service
+export default Employee
