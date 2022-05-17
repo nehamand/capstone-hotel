@@ -16,7 +16,11 @@ const getAllEmployees = async () => {
       updated_at: employee.updated_at,
     }
   })
-  return employeesToShow
+
+  const employeesActive = employeesToShow.filter(
+    (employee) => employee.status === true
+  )
+  return employeesActive
 }
 
 export default getAllEmployees
