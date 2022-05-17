@@ -8,17 +8,17 @@ const changeStatusService = async (id: string) => {
   const service = await serviceRepository.findOne({ where: { id } });
 
   if (!service) {
-      throw new AppError("Service not found", 400)
+    throw new AppError("Service not found", 400);
   }
 
-  const status = service.status = false
+  const status = (service.status = false);
 
   const inative = await serviceRepository.save({
-      ...service,
-      status
-  })
+    ...service,
+    status,
+  });
 
-  return inative
+  return { message: "Service Disabled", service: {name: inative.name, status} };
 };
 
-export default changeStatusService
+export default changeStatusService;

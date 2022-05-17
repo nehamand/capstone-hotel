@@ -15,7 +15,9 @@ class ServiceController {
   }
 
   static async index(req: Request, res: Response) {
-    const services = await getAllServices();
+    const status = req.query.status;
+
+    const services = await getAllServices(status as string);
 
     return res.status(200).json(services);
   }
@@ -30,12 +32,13 @@ class ServiceController {
 
   static async update(req: Request, res: Response) {
     const { id } = req.params;
-    const { name, price, description } = req.body;
+    const { name, price, description, status } = req.body;
 
     const updatedService = await updateService(id, {
       name,
       price,
       description,
+      status
     });
 
     return res.status(200).json(updatedService);
@@ -43,7 +46,7 @@ class ServiceController {
 
   static async delete(req: Request, res: Response) {
     const { id } = req.params;
-    
+
     const changeService = await changeStatusService(id);
 
     return res.status(200).json(changeService);

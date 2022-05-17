@@ -6,6 +6,7 @@ interface UpdateProps {
   name: string;
   price: number;
   description: string;
+  status: boolean
 }
 
 const updateService = async (id: string, data: UpdateProps) => {
@@ -22,6 +23,7 @@ const updateService = async (id: string, data: UpdateProps) => {
     name: data.name ? data.name : service.name,
     price: data.price ? data.price : service.price,
     description: data.description ? data.description : service.description,
+    status: data.status ? data.status : service.status,
     updated_at: new Date()
   });
 
