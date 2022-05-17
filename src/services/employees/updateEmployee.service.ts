@@ -41,6 +41,7 @@ const updateEmployeeService = async (
   }
 
   await employeeRepository.update(employee, employeeUpdated)
+  await employeeRepository.save(employeeUpdated)
 
   const employeeToShow = {
     id,
