@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
-import {boolean} from "yup"
 
 import Bedroom from "./Bedrooms"
 import HiredServices from "./HiredServices"
@@ -36,7 +35,7 @@ class Client {
   @OneToMany(() => HiredServices, (hiredServices) => hiredServices.clients, {
     eager: true,
   })
-  clients: HiredServices[]
+  hiredServices: HiredServices[]
 
   // relacionamento 1:N - quartos e clientes
   @ManyToOne((type) => Bedroom, (bedroom) => bedroom.clients)
