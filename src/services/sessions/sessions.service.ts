@@ -1,6 +1,6 @@
-import {compare} from "bcryptjs"
-import {sign} from "jsonwebtoken"
-import {AppDataSource} from "../../data-source"
+import { compare } from "bcryptjs"
+import { sign } from "jsonwebtoken"
+import { AppDataSource } from "../../data-source"
 import AppError from "../../errors/AppError"
 import Employee from "../../models/Employees"
 
@@ -21,7 +21,7 @@ export const sessionService = async ({
   const employeeRepository = AppDataSource.getRepository(Employee)
 
   const employee = await employeeRepository.findOne({
-    where: {cpf},
+    where: { cpf },
   })
 
   if (!employee) {
