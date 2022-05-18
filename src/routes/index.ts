@@ -10,6 +10,6 @@ const routes = Router()
 
 routes.use("/services", ensureAuth, serviceRouter)
 routes.use("/employees", employeeRouter)
-routes.use("/sessions", ensureAuth, sessionRouter)
+routes.use("/sessions", sessionRouter)
 
 export default routes
