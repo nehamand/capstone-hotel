@@ -12,28 +12,28 @@ import Service from "./Services"
 
 @Entity("hired_services")
 class HiredServices {
-  @PrimaryGeneratedColumn("uuid")
-  id: string
+  @PrimaryGeneratedColumn()
+  readonly id: number;
 
-  @Column({default: "now()"})
-  start_date: Date
+  @Column({ default: "now()" })
+  start_date: Date;
 
   @Column()
-  end_date: Date
+  end_date: Date;
 
   // relacionamento N:N clientes e serviços -- cliente como donos
-  @ManyToOne(() => Client)
-  clients: Client
+  @ManyToOne(() => Client, (clients) => clients.hiredServices)
+  clients: Client;
 
   // relacionamento N:N clientes e serviços -- cliente como donos
-  @ManyToOne(() => Service)
-  services: Service
+  @ManyToOne(() => Service, (service) => service.hiredServices)
+  service: Service;
 
-  @Column({default: false})
-  paid: boolean
+  @Column({ default: false })
+  paid: boolean;
 
-  @Column({type: "decimal", precision: 10, scale: 2})
-  total_price: number
+  @Column({ type: "decimal", precision: 10, scale: 2 })
+  total_price: number;
 
   // total price
   // @Expose({ name: "total_price" })
@@ -45,13 +45,13 @@ class HiredServices {
   // }
 
   @CreateDateColumn()
-  created_at: Date
+  created_at: Date;
 
   @UpdateDateColumn()
-  updated_at: Date
+  updated_at: Date;
 
-  @Column({default: true})
-  status: boolean
+  @Column({ default: true })
+  status: boolean;
 }
 
 export default HiredServices
