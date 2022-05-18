@@ -296,3 +296,148 @@ Vazio
 | Código do Erro  | Descrição          |
 |-----------------|--------------------|
 | 404 Not Found   | clients not found. |
+
+---
+
+### 1.3. **Atualizar clientes por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients/:id`
+
+### Exemplo de Request:
+```
+PATCH /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do cliente        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
+		"name": "exampleUpdated",
+		"cpf": "00000000000",
+		"birthDate": "2000-11-11T05:00:00.000Z",
+		"cellphone": "00000000000",
+		"created_at": "2022-05-17T23:58:32.438Z",
+		"updated_at": "2022-05-17T23:58:32.438Z",
+		"status": true,
+		"hired_services": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | clients not found. |
+
+---
+
+### 1.3. **Listar clientes por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients/:id`
+
+### Exemplo de Request:
+```
+GET /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do cliente        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
+		"name": "example1",
+		"cpf": "00000000000",
+		"birthDate": "2000-11-11T05:00:00.000Z",
+		"cellphone": "00000000000",
+		"created_at": "2022-05-17T23:58:32.438Z",
+		"updated_at": "2022-05-17T23:58:32.438Z",
+		"status": true,
+		"hired_services": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | clients not found. |
+
+---
+
+### 1.3. **Desativar clientes por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients/:id`
+
+### Exemplo de Request:
+```
+DELETE /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do cliente        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+	"message": "Service Disabled",
+	"service": {
+		"name": "example1",
+		"status": false
+	}
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | clients not found. |
+
+
