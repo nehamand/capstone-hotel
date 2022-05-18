@@ -572,7 +572,7 @@ Vazio
 
 ---
 
-### 1.4. **Atualizar quarto por ID**
+### 2.4. **Atualizar quarto por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
