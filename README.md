@@ -37,7 +37,6 @@ Diagrama ER da API definindo bem as relações entre as tabelas do banco de dado
 
 ![der](https://github.com/nehamamandelbaum/capstone-hotel/blob/readme/src/img/der%20new.png)
 
-
 ---
 
 ## 3. Início Rápido
@@ -84,36 +83,36 @@ Por enquanto, não foi implementada autenticação.
 
 ### Índice
 
-- [Clients](#1-clients)
+- [Clientes](#1-clients)
     - [POST - /clients](#11-criação-de-clientes)
     - [GET - /clients](#12-listando-clientes)
-    - [GET - /clients/:id](#13-listar-cliente-por-id)
+    - [GET - /clients/:id](#13-listar-clientes-por-id)
     - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
     - [DELETE - /clients/:id](#15-desativar-clientes)
 - [Quartos](#2-bedroom)
-    - [POST - /clients](#11-criação-de-clientes)
-    - [GET - /clients](#12-listando-clientes)
-    - [GET - /clients/:id](#13-listar-cliente-por-id)
-    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
-    - [DELETE - /clients/:id](#15-desativar-clientes)
+    - [POST - /bedroom](#16-criação-de-quartos)
+    - [GET - /bedroom](#17-listando-quartos)
+    - [GET - /bedroom/:id](#18-listar-quartos-por-id)
+    - [PATCH - /bedroom/:id](#19-atualizar-dados-quartos)
+    - [DELETE - /bedroom/:id](#20-desativar-quartos)
 - [Serviço contratado](#4-hired_service)
-    - [POST - /clients](#11-criação-de-clientes)
-    - [GET - /clients](#12-listando-clientes)
-    - [GET - /clients/:id](#13-listar-cliente-por-id)
-    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
-    - [DELETE - /clients/:id](#15-desativar-clientes)
+    - [POST - /clients](#21-criação-de-clientes)
+    - [GET - /clients](#22-listando-clientes)
+    - [GET - /clients/:id](#23-listar-clientes-por-id)
+    - [PATCH - /clients/:id](#24-atualizar-dados-clientes)
+    - [DELETE - /clients/:id](#25-desativar-clientes)
 - [Empregados](#3-employees)
-    - [POST - /clients](#11-criação-de-clientes)
-    - [GET - /clients](#12-listando-clientes)
-    - [GET - /clients/:id](#13-listar-cliente-por-id)
-    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
-    - [DELETE - /clients/:id](#15-desativar-clientes)
+    - [POST - /employees](#26-criação-de-funcionarios)
+    - [GET - /employees](#27-listando-funcionarios)
+    - [GET - /employees/:id](#28-listar-funcionarios-por-id)
+    - [PATCH - /employees/:id](#29-atualizar-dados-funcionarios)
+    - [DELETE - /employees/:id](#30-desativar-funcionarios)
 - [Serviços](#4-services)
-    - [POST - /clients](#11-criação-de-clientes)
-    - [GET - /clients](#12-listando-clientes)
-    - [GET - /clients/:id](#13-listar-cliente-por-id)
-    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
-    - [DELETE - /clients/:id](#15-desativar-clientes)
+    - [POST - /services](#31-criação-de-servico)
+    - [GET - /services](#32-listando-servicos)
+    - [GET - /services/:id](#33-listar-servico-por-id)
+    - [PATCH - /services/:id](#34-atualizar-dados-servicos)
+    - [DELETE - /services/:id](#35-desativar-servicos)
 
 ---
 
