@@ -3,6 +3,7 @@ import ServiceController from "../controllers/service.controller";
 
 const serviceRouter = Router()
 
+
 serviceRouter.post('', ServiceController.create)
 serviceRouter.get('', ServiceController.index)
 serviceRouter.get('/:id', ServiceController.show)
