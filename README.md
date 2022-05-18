@@ -25,7 +25,7 @@ Visão geral do projeto, um pouco das tecnologias usadas.
 - [Yup](https://www.npmjs.com/package/yup)
 
 A URL base da aplicação:
-http://suaapi.com/v1
+link api aqui
 
 ---
 
@@ -35,7 +35,8 @@ http://suaapi.com/v1
 
 Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-![DER]([DER_SP7_01.drawio.png](https://github.com/nehamamandelbaum/capstone-hotel/blob/readme/src/img/der%20new.png))
+![der](https://github.com/nehamamandelbaum/capstone-hotel/blob/readme/src/img/der%20new.png)
+
 
 ---
 
@@ -83,13 +84,36 @@ Por enquanto, não foi implementada autenticação.
 
 ### Índice
 
-- [Users](#1-users)
-    - [POST - /users](#11-criação-de-usuário)
-    - [GET - /users](#12-listando-usuários)
-	- [GET - /users/:user_id](#13-listar-usuário-por-id)
-- [Products](#2-products)
-- [Cart](#3-cart)
-- [Users](#4-buys)
+- [Clients](#1-clients)
+    - [POST - /clients](#11-criação-de-clientes)
+    - [GET - /clients](#12-listando-clientes)
+    - [GET - /clients/:id](#13-listar-cliente-por-id)
+    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
+    - [DELETE - /clients/:id](#15-desativar-clientes)
+- [Quartos](#2-bedroom)
+    - [POST - /clients](#11-criação-de-clientes)
+    - [GET - /clients](#12-listando-clientes)
+    - [GET - /clients/:id](#13-listar-cliente-por-id)
+    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
+    - [DELETE - /clients/:id](#15-desativar-clientes)
+- [Serviço contratado](#4-hired_service)
+    - [POST - /clients](#11-criação-de-clientes)
+    - [GET - /clients](#12-listando-clientes)
+    - [GET - /clients/:id](#13-listar-cliente-por-id)
+    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
+    - [DELETE - /clients/:id](#15-desativar-clientes)
+- [Empregados](#3-employees)
+    - [POST - /clients](#11-criação-de-clientes)
+    - [GET - /clients](#12-listando-clientes)
+    - [GET - /clients/:id](#13-listar-cliente-por-id)
+    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
+    - [DELETE - /clients/:id](#15-desativar-clientes)
+- [Serviços](#4-services)
+    - [POST - /clients](#11-criação-de-clientes)
+    - [GET - /clients](#12-listando-clientes)
+    - [GET - /clients/:id](#13-listar-cliente-por-id)
+    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
+    - [DELETE - /clients/:id](#15-desativar-clientes)
 
 ---
 
