@@ -6,7 +6,7 @@ interface UpdateProps {
   name: string;
   price: number;
   description: string;
-  status: boolean
+  status: boolean;
 }
 
 const updateService = async (id: string, data: UpdateProps) => {
@@ -18,16 +18,9 @@ const updateService = async (id: string, data: UpdateProps) => {
     throw new AppError("Service not found", 400);
   }
 
-  const updatedService = await serviceRepository.save({
-    ...service,
-    name: data.name ? data.name : service.name,
-    price: data.price ? data.price : service.price,
-    description: data.description ? data.description : service.description,
-    status: data.status ? data.status : service.status,
-    updated_at: new Date()
-  });
+  const updatedService = await serviceRepository.save({ ...data, id });
 
-  return updatedService;
+  return {message: "Service updated", updatedService}
 };
 
 export default updateService;

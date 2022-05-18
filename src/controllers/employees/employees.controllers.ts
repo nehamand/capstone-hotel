@@ -38,17 +38,16 @@ class employeeControllers {
     const { id } = req.params
     const { name, password, admin, status } = req.body
 
-    const employeeUpdated = await updateEmployeeService(
-      id,
+    const employeeUpdated = await updateEmployeeService(id, {
       name,
       password,
       admin,
-      status
-    )
+      status,
+    })
 
     return res
       .status(201)
-      .json({ message: "Employee updated", employee: employeeUpdated })
+      .json({ message: "Employee updated", employeeUpdated })
   }
   static async delete(req: Request, res: Response) {
     const { id } = req.params

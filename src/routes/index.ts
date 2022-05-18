@@ -9,7 +9,7 @@ import bedroomRouter from "./bedroom.routes"
 
 const routes = Router()
 
-routes.use("/service", ensureAuth, serviceRouter)
+routes.use("/services", ensureAuth, serviceRouter)
 routes.use("/employees", employeeRouter)
 routes.use("/sessions", sessionRouter)
 routes.use("/bedrooms", ensureAuth, bedroomRouter)
