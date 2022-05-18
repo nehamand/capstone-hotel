@@ -10,6 +10,8 @@ import {
 import Client from "./Clients"
 import Service from "./Services"
 
+import {Expose} from "class-transformer"
+
 @Entity("hired_services")
 class HiredServices {
   @PrimaryGeneratedColumn()
@@ -35,13 +37,9 @@ class HiredServices {
   @Column({ type: "decimal", precision: 10, scale: 2 })
   total_price: number;
 
-  // total price
-  // @Expose({ name: "total_price" })
+  // @Expose({name: "total_price"})
   // getTotalPrice(): number {
-  //   return this.services.reduce(
-  //     (acc, actual) => acc + Number(actual.price),
-  //     0
-  //   );
+  //   return this.services.reduce((acc, actual) => acc + Number(actual.price), 0)
   // }
 
   @CreateDateColumn()
