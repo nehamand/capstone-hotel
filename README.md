@@ -433,7 +433,7 @@ Content-type: application/json
 ```json
 {
 	"number": "5",
-	"floor "4",
+	"floor": "4",
 	"capacity": 5,
 	"availability": true
 }
@@ -454,7 +454,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 {
 	"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
 	"number": "5",
-	"floor" "4",
+	"floor": "4",
 	"capacity": 5,
 	"availability": true,
 	"created_at": "2022-05-18T00:36:36.901Z",
