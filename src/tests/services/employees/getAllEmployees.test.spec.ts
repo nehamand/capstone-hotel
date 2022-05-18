@@ -40,6 +40,8 @@ describe("GET /employees", () => {
       .set("Authorization", `Bearer ${token}`)
 
     expect(response.status).toBe(200)
-    expect(response).toEqual(expect.arrayContaining([]))
+    expect(response.body).toEqual(
+      expect.arrayContaining([expect.objectContaining({ cpf: "123321" })])
+    )
   })
 })
