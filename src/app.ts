@@ -8,10 +8,11 @@ import serviceRouter from "./routes/service.routes"
 const app = express()
 
 app.use(express.json())
+
+app.use("/service", serviceRouter)
+
 app.use(errorHandling)
 
 // app.use(routes)
-
-app.use('/service', serviceRouter)
 
 export default app
