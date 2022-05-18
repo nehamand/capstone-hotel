@@ -21,9 +21,6 @@ class HiredServices {
   @Column()
   end_date: Date
 
-  @Column({unique: true})
-  cellphone: string
-
   // relacionamento N:N clientes e serviços -- cliente como donos
   @ManyToOne(() => Client)
   clients: Client

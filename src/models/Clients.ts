@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
-import {boolean} from "yup"
 
 import Bedroom from "./Bedrooms"
 import HiredServices from "./HiredServices"
@@ -20,8 +19,8 @@ class Client {
   @Column({length: 128})
   name: string
 
-  @Column()
-  email: string
+  //@Column()
+  //email: string
 
   @Column({unique: true, length: 11})
   cpf: string
@@ -36,7 +35,7 @@ class Client {
   @OneToMany(() => HiredServices, (hiredServices) => hiredServices.clients, {
     eager: true,
   })
-  clients: HiredServices[]
+  hired_services: HiredServices[]
 
   // relacionamento 1:N - quartos e clientes
   @ManyToOne((type) => Bedroom, (bedroom) => bedroom.clients)
