@@ -6,27 +6,28 @@ import {
   UpdateDateColumn,
 } from "typeorm"
 
-import {Exclude} from "class-transformer"
+import { v4 as uuid } from "uuid"
+import { Exclude } from "class-transformer"
 
 @Entity("employees")
 class Employee {
   @PrimaryGeneratedColumn("uuid")
   id: string
 
-  @Column({length: 128})
+  @Column({ length: 128 })
   name: string
 
   // @Column()
   // email: string;
 
-  @Column({unique: true, length: 11})
+  @Column({ unique: true, length: 11 })
   cpf: string
 
   @Exclude()
   @Column()
   password: string
 
-  @Column({default: false})
+  @Column({ default: false })
   admin: boolean
 
   @CreateDateColumn()
@@ -35,8 +36,14 @@ class Employee {
   @UpdateDateColumn()
   updated_at: Date
 
-  @Column({default: true})
+  @Column({ default: true })
   status: boolean
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid()
+    }
+  }
 }
 
 export default Employee
