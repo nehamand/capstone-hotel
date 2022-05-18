@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm"
-import { AppDataSource } from "../../data-source"
 import request from "supertest"
+
+import { AppDataSource } from "../../data-source"
 import app from "../../app"
 import { sessionService } from "../../services/sessions/sessions.service"
 import createEmployeeService from "../../services/employees/createEmployee.service"
@@ -16,7 +17,7 @@ describe("GET /employees", () => {
         console.error("Error during Data Source initialization", err)
       })
     const employee = {
-      name: "Luiz",
+      name: "John Doe",
       cpf: "123321",
       password: "1234",
       admin: false,
@@ -34,14 +35,19 @@ describe("GET /employees", () => {
     await connection.destroy()
   })
 
-  test("Should create a new employee", async () => {
+  test("Should get all employees", async () => {
     const response = await request(app)
       .get("/employees")
       .set("Authorization", `Bearer ${token}`)
 
     expect(response.status).toBe(200)
+    expect(response.body[0]).toHaveProperty(["id"])
     expect(response.body).toEqual(
-      expect.arrayContaining([expect.objectContaining({ cpf: "123321" })])
+      expect.arrayContaining([
+        expect.objectContaining({
+          cpf: "123321",
+        }),
+      ])
     )
   })
 })
