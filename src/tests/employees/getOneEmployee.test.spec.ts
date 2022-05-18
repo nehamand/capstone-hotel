@@ -37,7 +37,7 @@ describe("GET /employees/:id", () => {
     await connection.destroy()
   })
 
-  test("Should get all employees", async () => {
+  test("Should get one employee", async () => {
     const response = await request(app)
       .get(`/employees/${id}`)
       .set("Authorization", `Bearer ${token}`)
