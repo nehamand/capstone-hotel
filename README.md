@@ -95,19 +95,19 @@ Por enquanto, não foi implementada autenticação.
     - [GET - /bedrooms/:id](#18-listar-quartos-por-id)
     - [PATCH - /bedrooms/:id](#19-atualizar-dados-quartos)
     - [DELETE - /bedrooms/:id](#20-desativar-quartos)
-- [Serviço contratado](#4-hired_service)
+- [Serviço contratado](#3-hired_service)
     - [POST - /clients](#21-criação-de-clientes)
     - [GET - /clients](#22-listando-clientes)
     - [GET - /clients/:id](#23-listar-clientes-por-id)
     - [PATCH - /clients/:id](#24-atualizar-dados-clientes)
     - [DELETE - /clients/:id](#25-desativar-clientes)
-- [Empregados](#3-employees)
+- [Empregados](#4-employees)
     - [POST - /employees](#26-criação-de-funcionarios)
     - [GET - /employees](#27-listando-funcionarios)
     - [GET - /employees/:id](#28-listar-funcionarios-por-id)
     - [PATCH - /employees/:id](#29-atualizar-dados-funcionarios)
     - [DELETE - /employees/:id](#30-desativar-funcionarios)
-- [Serviços](#4-services)
+- [Serviços](#5-services)
     - [POST - /services](#31-criação-de-servico)
     - [GET - /services](#32-listando-servicos)
     - [GET - /services/:id](#33-listar-servico-por-id)
@@ -299,7 +299,7 @@ Vazio
 
 ---
 
-### 1.3. **Atualizar clientes por ID**
+### 1.4. **Atualizar clientes por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -348,7 +348,7 @@ Vazio
 
 ---
 
-### 1.3. **Desativar clientes por ID**
+### 1.5. **Desativar clientes por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -391,7 +391,7 @@ Vazio
 |-----------------|--------------------|
 | 404 Not Found   | clients not found. |
 
-## 1. **Quartos**
+## 2. **Quartos**
 [ Voltar para os Endpoints ](#5-endpoints)
 
 O objeto bedroom é definido como:
@@ -415,7 +415,7 @@ O objeto bedroom é definido como:
 
 ---
 
-### 1.1. **Criação de Quartos**
+### 2.1. **Criação de Quartos**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
@@ -468,7 +468,7 @@ Nenhum
 
 ---
 
-### 1.2. **Listando Quartos**
+### 2.2. **Listando Quartos**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -523,7 +523,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 1.3. **Listar quartos por ID**
+### 2.3. **Listar quartos por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -572,7 +572,7 @@ Vazio
 
 ---
 
-### 1.3. **Atualizar quarto por ID**
+### 1.4. **Atualizar quarto por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -621,7 +621,7 @@ Vazio
 
 ---
 
-### 1.3. **Desativar quartos por ID**
+### 2.5. **Desativar quartos por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
