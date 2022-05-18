@@ -13,9 +13,9 @@ const disableBedroomService = async (id: string) => {
 
     bedroom.status = false
 
-    await bedroomRepository.save(bedroom)
+    const bedroomDisabled = await bedroomRepository.save(bedroom)
 
-    return
+    return bedroomDisabled;
 }
 
 export default disableBedroomService

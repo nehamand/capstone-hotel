@@ -26,28 +26,38 @@ class BedroomsController {
   }
 
   static async show(req: Request, res: Response) {
-    const {id} = req.params
+    const { id } = req.params;
 
-    const bedroom = await showBedroomService(id)
+    const bedroom = await showBedroomService(id);
 
-    return res.json(bedroom)
+    return res.json(bedroom);
   }
 
   static async update(req: Request, res: Response) {
-    const {id} = req.params
-    const {capacity, availability} = req.body
+    const { id } = req.params;
+    const { capacity, availability } = req.body;
 
-    const updateBedroom = await updateBedroomService({id, capacity, availability})
+    const updateBedroom = await updateBedroomService({
+      id,
+      capacity,
+      availability,
+    });
 
-    return res.json(updateBedroom)
+    return res.json(updateBedroom);
   }
 
   static async delete(req: Request, res: Response) {
-    const {id} = req.params
+    const { id } = req.params;
 
-    await disableBedroomService(id)
+    const bedroomDisabled = await disableBedroomService(id);
 
-    return res.json({ message: "Bedroom disabled" });
+    return res.json({
+      message: "Bedroom disabled",
+      bedroom: {
+        number: bedroomDisabled.number,
+        status: bedroomDisabled.status,
+      },
+    });
   }
 }
 
