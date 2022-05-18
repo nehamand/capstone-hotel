@@ -144,7 +144,7 @@ O objeto User é definido como:
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-### `/clientes`
+### `/clients`
 
 ### Exemplo de Request:
 ```
@@ -187,12 +187,11 @@ OBS.: Chaves não presentes no schema serão removidas.
 	"status": true
 }
 ```
-
 ### Possíveis Erros:
-| Código do Erro | Descrição                       |
-|----------------|---------------------------------| 
-| 400 Conflict   | cpf   already registered.       |
-| 400 Conflict   | cellphone   already registered. |
+| Código do Erro | Descrição |
+|----------------|-----------|
+| 400 Conflict   | cpf already registered |
+| 400 Conflict   | cellphone already registered  |
 
 ---
 
@@ -200,12 +199,12 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/users`
+### `/clients`
 
 ### Exemplo de Request:
 ```
 GET /users
-Host: http://suaapi.com/v1
+Host: link da api
 Authorization: None
 Content-type: application/json
 ```
@@ -222,10 +221,26 @@ Vazio
 ```json
 [
 	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Eduardo",
-		"email": "edu@mail.com",
-		"isAdm": true
+		"id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
+		"name": "example1",
+		"cpf": "00000000000",
+		"birthDate": "2000-11-11T05:00:00.000Z",
+		"cellphone": "00000000000",
+		"created_at": "2022-05-17T23:58:32.438Z",
+		"updated_at": "2022-05-17T23:58:32.438Z",
+		"status": true,
+		"hired_services": []
+	},
+	{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"name": "example2",
+		"cpf": "11111111111",
+		"birthDate": "2001-11-11T04:31:12.000Z",
+		"cellphone": "11111111111",
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"hired_services": []
 	}
 ]
 ```
@@ -235,16 +250,16 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 1.3. **Listar Usuário por ID**
+### 1.3. **Listar clientes por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/users/:user_id`
+### `/clients/:id`
 
 ### Exemplo de Request:
 ```
-GET /users/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
+GET /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
 Authorization: None
 Content-type: application/json
 ```
@@ -252,7 +267,7 @@ Content-type: application/json
 ### Parâmetros da Requisição:
 | Parâmetro   | Tipo        | Descrição                             |
 |-------------|-------------|---------------------------------------|
-| user_id     | string      | Identificador único do usuário (User) |
+| id          | string      | Identificador único do cliente        |
 
 ### Corpo da Requisição:
 ```json
@@ -265,14 +280,19 @@ Vazio
 ```
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+		"id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
+		"name": "example1",
+		"cpf": "00000000000",
+		"birthDate": "2000-11-11T05:00:00.000Z",
+		"cellphone": "00000000000",
+		"created_at": "2022-05-17T23:58:32.438Z",
+		"updated_at": "2022-05-17T23:58:32.438Z",
+		"status": true,
+		"hired_services": []
 }
 ```
 
 ### Possíveis Erros:
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 404 Not Found   | User not found. |
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | clients not found. |
