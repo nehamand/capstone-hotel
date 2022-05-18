@@ -18,7 +18,8 @@ const updateClient = async (id: string, data:UpdateProps) => {
       }
 
       const updatedClients = await clientRepository.save({...data, id});
-      return updatedClients;
+
+      return {message: "Client updated", updatedClients}
 }
 
 export default updateClient;
