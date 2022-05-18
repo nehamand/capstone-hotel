@@ -26,6 +26,7 @@ const updateService = async (id: string, data: UpdateProps) => {
     status: data.status ? data.status : service.status,
     updated_at: new Date()
   });
+  
 
   return updatedService;
 };
