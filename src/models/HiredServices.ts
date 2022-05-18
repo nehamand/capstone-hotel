@@ -10,6 +10,8 @@ import {
 import Client from "./Clients"
 import Service from "./Services"
 
+import {Expose} from "class-transformer"
+
 @Entity("hired_services")
 class HiredServices {
   @PrimaryGeneratedColumn("uuid")
@@ -27,22 +29,18 @@ class HiredServices {
 
   // relacionamento N:N clientes e serviços -- cliente como donos
   @ManyToOne(() => Service)
-  services: Service
+  services: Service[]
 
   @Column({default: false})
   paid: boolean
 
-  @Column({type: "decimal", precision: 10, scale: 2})
-  total_price: number
+  // @Column({type: "decimal", precision: 10, scale: 2, nullable: true})
+  // total_price: number
 
-  // total price
-  // @Expose({ name: "total_price" })
-  // getTotalPrice(): number {
-  //   return this.services.reduce(
-  //     (acc, actual) => acc + Number(actual.price),
-  //     0
-  //   );
-  // }
+  @Expose({name: "total_price"})
+  getTotalPrice(): number {
+    return this.services.reduce((acc, actual) => acc + Number(actual.price), 0)
+  }
 
   @CreateDateColumn()
   created_at: Date
