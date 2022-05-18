@@ -124,10 +124,9 @@ O objeto User é definido como:
 | Campo          | Tipo    | Descrição                                       |
 | ---------------|---------|-------------------------------------------------|
 | name           | string  | O nome do usuário.                              |
-| birthDate      | date    | Data de aniversário no formato yyyy-mm-dd       |
+| birthDate      | string  | Data de aniversário no formato YYYY-MM-DD       |
 | cpf            | string  | Número com 11 digitos                           |
 | cellphone      | string  | Número de telefone celular                      |
-| bedroom_id     | string  | UUID do quarto definido                         |
 
 ### Endpoints
 
@@ -141,16 +140,16 @@ O objeto User é definido como:
 
 ---
 
-### 1.1. **Criação de Usuário**
+### 1.1. **Criação de Clientes**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-### `/users`
+### `/clientes`
 
 ### Exemplo de Request:
 ```
-POST /users
-Host: http://suaapi.com/v1
+POST /clientes
+Host: link da api
 Authorization: None
 Content-type: application/json
 ```
@@ -158,37 +157,16 @@ Content-type: application/json
 ### Corpo da Requisição:
 ```json
 {
-	"name": "eDuArDo",
-	"email": "edu@mail.com",
-	"password": "1234",
-	"isAdm": true
+	"name": "bryan",
+	"birthDate": "30/10/2002",
+	"cpf": "16712345245",
+	"cellphone": "68999943321"
 }
 ```
 
 ### Schema de Validação com Yup:
 ```javascript
-name: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => { 
-		return titlelify(originalValue) 
-	}),
-email: yup
-        .string()
-	.email()
-	.required()
-	.transform((value, originalValue) => { 
-		return originalValue.toLowerCase() 
-	}),
-password: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => { 
-		return bcrypt.hashSync(originalValue, 10) 
-	}),
-isAdm: yup
-        .boolean()
-	.required(),
+	em andamento
 ```
 OBS.: Chaves não presentes no schema serão removidas.
 
@@ -199,21 +177,26 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+	"name": "bryan",
+	"birthDate": "30/10/2002",
+	"cpf": "16712345245",
+	"cellphone": "68999943321",
+	"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+	"created_at": "2022-05-18T00:36:36.901Z",
+	"updated_at": "2022-05-18T00:36:36.901Z",
+	"status": true
 }
 ```
 
 ### Possíveis Erros:
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 409 Conflict   | Email already registered. |
+| Código do Erro | Descrição                       |
+|----------------|---------------------------------| 
+| 400 Conflict   | cpf   already registered.       |
+| 400 Conflict   | cellphone   already registered. |
 
 ---
 
-### 1.2. **Listando Usuários**
+### 1.2. **Listando Clientes**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
