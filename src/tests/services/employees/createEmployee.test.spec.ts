@@ -2,9 +2,8 @@ import { DataSource } from "typeorm"
 import { AppDataSource } from "../../../data-source"
 import request from "supertest"
 import app from "../../../app"
-import createEmployeeService from "../../../services/employees/createEmployee.service"
 
-describe("GET /users/me", () => {
+describe("POST /employees", () => {
   let connection: DataSource
 
   beforeAll(async () => {
@@ -19,7 +18,7 @@ describe("GET /users/me", () => {
     await connection.destroy()
   })
 
-  test("Should return users", async () => {
+  test("Should create a new employee", async () => {
     const response = await request(app)
       .post("/employees")
       .send({ name: "Luiz", cpf: "123456789", password: "12345" })
