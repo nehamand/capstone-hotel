@@ -5,7 +5,7 @@ export default class SessionController {
   static async store(request: Request, response: Response) {
     const {cpf, password} = request.body
 
-    const authenticatedUser = sessionService({cpf, password})
+    const authenticatedUser = await sessionService({cpf, password})
 
     return response.json(authenticatedUser)
   }
