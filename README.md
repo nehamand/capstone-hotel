@@ -25,7 +25,7 @@ Visão geral do projeto, um pouco das tecnologias usadas.
 - [Yup](https://www.npmjs.com/package/yup)
 
 A URL base da aplicação:
-http://suaapi.com/v1
+http://
 
 ---
 
@@ -35,7 +35,7 @@ http://suaapi.com/v1
 
 Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-![DER](DER_SP7_01.drawio.png)
+![DER](DER.png)
 
 ---
 
@@ -57,7 +57,6 @@ Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.examp
 ```
 cp .env.example .env
 ```
-
 Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
 
 ### 3.3. Migrations
@@ -83,20 +82,23 @@ Por enquanto, não foi implementada autenticação.
 
 ### Índice
 
-- [Users](#1-users)
-    - [POST - /users](#11-criação-de-usuário)
-    - [GET - /users](#12-listando-usuários)
-	- [GET - /users/:user_id](#13-listar-usuário-por-id)
-- [Products](#2-products)
-- [Cart](#3-cart)
-- [Users](#4-buys)
+- [Clientes](#1-clients)
+    - [POST - /clients](#11-criação-de-clientes)
+    - [GET - /clients](#12-listando-clientes)
+    - [GET - /clients/:id](#13-listar-clientes-por-id)
+    - [PATCH - /clients/:id](#14-atualizando-clientes-por-id)
+    - [DELETE - /clients/:id](#14-desativando-clientes-por-id)
+- [Quartos](#2-bedrooms)
+- [Serviços](#2-service)
+- [Funcionários](#3-employees)
+- [Serviço contratado](#hired_service)
 
 ---
 
-## 1. **Users**
+## 1. **Clientes**
 [ Voltar para os Endpoints ](#5-endpoints)
 
-O objeto User é definido como:
+O objeto client é definido como:
 
 | Campo      | Tipo   | Descrição                                     |
 | -----------|--------|-------------------------------------------------|
