@@ -116,26 +116,28 @@ Por enquanto, não foi implementada autenticação.
 
 ---
 
-## 1. **Users**
+## 1. **Clientes**
 [ Voltar para os Endpoints ](#5-endpoints)
 
 O objeto User é definido como:
 
-| Campo      | Tipo   | Descrição                                     |
-| -----------|--------|-------------------------------------------------|
-| id         | string | Identificador único do usuário                  |
-| name       | string | O nome do usuário.                              |
-| email      | string | O e-mail do usuário.                            |
-| password   | string | A senha de acesso do usuário                    |
-| isAdm      | boolean | Define se um usuário é Administrador ou não.   |
+| Campo          | Tipo    | Descrição                                       |
+| ---------------|---------|-------------------------------------------------|
+| name           | string  | O nome do usuário.                              |
+| birthDate      | date    | Data de aniversário no formato yyyy-mm-dd       |
+| cpf            | string  | Número com 11 digitos                           |
+| cellphone      | string  | Número de telefone celular                      |
+| bedroom_id     | string  | UUID do quarto definido                         |
 
 ### Endpoints
 
-| Método   | Rota       | Descrição                               |
-|----------|------------|-----------------------------------------|
-| POST     | /users     | Criação de um usuário.                  |
-| GET      | /users     | Lista todos os usuários                 |
-| GET      | /users/:user_id     | Lista um usuário usando seu ID como parâmetro 
+| Método      | Rota         | Descrição                                        |
+|-------------|--------------|--------------------------------------------------|
+| POST        | /clients     | Criação de um clientes                           |
+| GET         | /clients     | Lista todos os clientes                          |
+| GET         | /clients/:id | Lista um cliente usando seu ID como parâmetro    | 
+| PATCH       | /clients/:id | atualiza um cliente usando seu ID como parâmetro | 
+| DELETE      | /clients/:id | deleta um cliente usando seu ID como parâmetro   | 
 
 ---
 
