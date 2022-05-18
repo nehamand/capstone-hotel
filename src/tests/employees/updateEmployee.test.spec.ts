@@ -44,7 +44,7 @@ describe("PATCH /employees/:id", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({ name: "New name" })
 
-    expect(response.status).toBe(200)
+    expect(response.status).toBe(201)
     expect(response.body).toHaveProperty("id")
     expect(response.body).toEqual(
       expect.objectContaining({

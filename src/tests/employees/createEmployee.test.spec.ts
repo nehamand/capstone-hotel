@@ -25,5 +25,6 @@ describe("POST /employees", () => {
 
     expect(response.status).toBe(201)
     expect(response.body).toHaveProperty("admin")
+    expect(response.body).toHaveProperty("id")
   })
 })
