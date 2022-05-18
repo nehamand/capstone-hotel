@@ -1,9 +1,9 @@
 import { DataSource } from "typeorm"
-import { AppDataSource } from "../../../data-source"
+import { AppDataSource } from "../../data-source"
 import request from "supertest"
-import app from "../../../app"
-import { sessionService } from "../../../services/sessions/sessions.service"
-import createEmployeeService from "../../../services/employees/createEmployee.service"
+import app from "../../app"
+import { sessionService } from "../../services/sessions/sessions.service"
+import createEmployeeService from "../../services/employees/createEmployee.service"
 
 describe("GET /employees", () => {
   let connection: DataSource
