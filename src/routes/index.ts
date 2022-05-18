@@ -8,7 +8,7 @@ import sessionRouter from "./session.routes"
 
 const routes = Router()
 
-routes.use("/service", ensureAuth, serviceRouter)
+routes.use("/services", ensureAuth, serviceRouter)
 routes.use("/employees", employeeRouter)
 routes.use("/sessions", ensureAuth, sessionRouter)
 
