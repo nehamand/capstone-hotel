@@ -21,7 +21,7 @@ describe("POST /employees", () => {
   test("Should create a new employee", async () => {
     const response = await request(app)
       .post("/employees")
-      .send({ name: "Luiz", cpf: "123456789", password: "12345" })
+      .send({ name: "John Doe", cpf: "123456789", password: "12345" })
 
     expect(response.status).toBe(201)
     expect(response.body).toHaveProperty("admin")
