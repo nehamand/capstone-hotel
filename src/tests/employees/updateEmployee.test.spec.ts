@@ -45,11 +45,7 @@ describe("PATCH /employees/:id", () => {
       .send({ name: "New name" })
 
     expect(response.status).toBe(201)
-    expect(response.body).toHaveProperty("id")
-    expect(response.body).toEqual(
-      expect.objectContaining({
-        name: "New name",
-      })
-    )
+    expect(response.body).toHaveProperty("message")
+    expect(response.body).toHaveProperty("employeeUpdated")
   })
 })
