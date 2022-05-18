@@ -33,9 +33,9 @@ const createBedroomService = async ({
   bedroom.availability = availability
 
   bedroomRepository.create(bedroom)
-  await bedroomRepository.save(bedroom)
+  const bedroomCreated = await bedroomRepository.save(bedroom)
 
-  return bedroom
+  return bedroomCreated;
 };
 
 export default createBedroomService;
