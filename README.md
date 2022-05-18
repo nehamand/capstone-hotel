@@ -87,20 +87,20 @@ Por enquanto, não foi implementada autenticação.
     - [POST - /clients](#11-criação-de-clientes)
     - [GET - /clients](#12-listando-clientes)
     - [GET - /clients/:id](#13-listar-clientes-por-id)
-    	- [PATCH - /clients/:id](#14-atualizar-dados-clientes)
-    	- [DELETE - /clients/:id](#15-desativar-clientes)
-- [Quartos](#2-bedroom)
+    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
+    - [DELETE - /clients/:id](#15-desativar-clientes)
+- [Quartos](#2-bedrooms)
     - [POST - /bedrooms](#21-criação-de-quartos)
     - [GET - /bedrooms](#22-listando-quartos)
     - [GET - /bedrooms/:id](#23-listar-quartos-por-id)
     - [PATCH - /bedrooms/:id](#24-atualizar-dados-quartos)
     - [DELETE - /bedrooms/:id](#25-desativar-quartos)
-- [Serviço contratado](#3-hired_service)
-    - [POST - /clients](#21-criação-de-clientes)
-    - [GET - /clients](#22-listando-clientes)
-    - [GET - /clients/:id](#23-listar-clientes-por-id)
-    - [PATCH - /clients/:id](#24-atualizar-dados-clientes)
-    - [DELETE - /clients/:id](#25-desativar-clientes)
+- [Serviços contratado](#4-hired_services)
+    - [POST - /hireds](#31-criação-de-contratos)
+    - [GET - /hireds](#32-listando-contratos)
+    - [GET - /hireds/:id](#33-listar-contratos-por-id)
+    - [PATCH - /hireds/:id](#34-atualizar-dados-contratos)
+    - [DELETE - /hireds/:id](#35-desativar-contratos)
 - [Empregados](#4-employees)
     - [POST - /employees](#26-criação-de-funcionarios)
     - [GET - /employees](#27-listando-funcionarios)
@@ -391,6 +391,281 @@ Vazio
 |-----------------|--------------------|
 | 404 Not Found   | clients not found. |
 
+## 3. **Serviços contratados**
+[ Voltar para os Endpoints ](#5-endpoints)
+
+O objeto hireds é definido como:
+
+| Campo          | Tipo    | Descrição                                       |
+| ---------------|---------|-------------------------------------------------|
+| clientsId      | string  | UUID do cliente                                 |
+| servicesId     | string  | UUID do serviço usado                           |
+| start_date     | Date    | Data de inicio de hospedagem (opicional)        |
+| end_date       | Date    | Data de final de hospedagem (opicional)         |
+| paid           | boolean | Se o contrato já foi pago                       |
+| status         | boolean | Se o quarto está disponível                     |
+
+### Endpoints
+
+| Método      | Rota        | Descrição                                      |
+|-------------|-------------|------------------------------------------------|
+| POST        | /hireds     | Criação de um contratos                        |
+| GET         | /hireds     | Lista todos os contratos                       |
+| GET         | /hireds/:id | Lista um contrato usando seu ID como parâmetro | 
+| PATCH       | /hireds/:id | atualiza contrato usando seu ID como parâmetro | 
+| DELETE      | /hireds/:id | desativa contrato usando seu ID como parâmetro | 
+
+---
+
+### 2.1. **Criação de Contratos**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/hireds`
+
+### Exemplo de Request:
+```
+POST /hireds
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+	"number": "5",
+	"floor": "4",
+	"capacity": 5,
+	"availability": true
+}
+```
+
+### Schema de Validação com Yup:
+```javascript
+	em andamento
+```
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+```
+201 Created
+```
+
+```json
+{
+	"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+	"number": "5",
+	"floor": "4",
+	"capacity": 5,
+	"availability": true,
+	"created_at": "2022-05-18T00:36:36.901Z",
+	"updated_at": "2022-05-18T00:36:36.901Z",
+	"status": true,
+	"clients": []
+}
+```
+### Possíveis Erros:
+Nenhum
+
+---
+
+### 2.2. **Listando Quartos**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms`
+
+### Exemplo de Request:
+```
+GET /bedrooms
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+[
+	{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"number": "5",
+		"floor": "4",
+		"capacity": 5,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+	}, 
+	{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba999",
+		"number": "3",
+		"floor": "1",
+		"capacity": 2,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+	}
+]
+```
+
+### Possíveis Erros:
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 2.3. **Listar quartos por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms/:id`
+
+### Exemplo de Request:
+```
+GET /bedrooms/dd622e7a-e0df-470e-8834-91b5320ba970
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do quarto         |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"number": "5",
+		"floor": "4",
+		"capacity": 5,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | bedrooms not found. |
+
+---
+
+### 2.4. **Atualizar quarto por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms/:id`
+
+### Exemplo de Request:
+```
+PATCH /bedrooms/dd622e7a-e0df-470e-8834-91b5320ba970
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do quarto         |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"number": "5",
+		"floor": "5",
+		"capacity": 6,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição           |
+|-----------------|---------------------|
+| 404 Not Found   | bedrooms not found. |
+
+---
+
+### 2.5. **Desativar quartos por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms/:id`
+
+### Exemplo de Request:
+```
+DELETE /bedrooms/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do quartos        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+    "message": "Bedroom disabled",
+    "bedroom": {
+      "status": false,
+      "number": "5",
+    }
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição           |
+|-----------------|---------------------|
+| 404 Not Found   | bedrooms not found. |
+
 ## 2. **Quartos**
 [ Voltar para os Endpoints ](#5-endpoints)
 
@@ -663,5 +938,3 @@ Vazio
 | Código do Erro  | Descrição           |
 |-----------------|---------------------|
 | 404 Not Found   | bedrooms not found. |
-
-
