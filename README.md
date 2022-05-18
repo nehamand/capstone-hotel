@@ -454,13 +454,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 {
 	"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
 	"number": "5",
-	"floor "4",
+	"floor" "4",
 	"capacity": 5,
 	"availability": true,
 	"created_at": "2022-05-18T00:36:36.901Z",
 	"updated_at": "2022-05-18T00:36:36.901Z",
 	"status": true,
-	"clients: []
+	"clients": []
 }
 ```
 ### Possíveis Erros:
@@ -496,24 +496,24 @@ Vazio
 	{
 		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
 		"number": "5",
-		"floor "4",
+		"floor": "4",
 		"capacity": 5,
 		"availability": true,
 		"created_at": "2022-05-18T00:36:36.901Z",
 		"updated_at": "2022-05-18T00:36:36.901Z",
 		"status": true,
-		"clients: []
+		"clients": []
 	}, 
 	{
 		"id": "dd622e7a-e0df-470e-8834-91b5320ba999",
 		"number": "3",
-		"floor "1",
+		"floor": "1",
 		"capacity": 2,
 		"availability": true,
 		"created_at": "2022-05-18T00:36:36.901Z",
 		"updated_at": "2022-05-18T00:36:36.901Z",
 		"status": true,
-		"clients: []
+		"clients": []
 	}
 ]
 ```
@@ -555,13 +555,13 @@ Vazio
 {
 		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
 		"number": "5",
-		"floor "4",
+		"floor": "4",
 		"capacity": 5,
 		"availability": true,
 		"created_at": "2022-05-18T00:36:36.901Z",
 		"updated_at": "2022-05-18T00:36:36.901Z",
 		"status": true,
-		"clients: []
+		"clients": []
 }
 ```
 
@@ -604,13 +604,13 @@ Vazio
 {
 		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
 		"number": "5",
-		"floor "5",
+		"floor": "5",
 		"capacity": 6,
 		"availability": true,
 		"created_at": "2022-05-18T00:36:36.901Z",
 		"updated_at": "2022-05-18T00:36:36.901Z",
 		"status": true,
-		"clients: []
+		"clients": []
 }
 ```
 
@@ -651,11 +651,11 @@ Vazio
 ```
 ```json
 {
-    message: "Bedroom disabled",
-    bedroom: {
-      status: false,
-      number: "5",
-    },
+    "message": "Bedroom disabled",
+    "bedroom": {
+      "status": false,
+      "number": "5",
+    }
 }
 ```
 
