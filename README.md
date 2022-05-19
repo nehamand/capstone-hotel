@@ -1104,11 +1104,11 @@ Vazio
 
 ---
 
-### 2.4. **Atualizar quarto por ID**
+### 2.4. **Atualizar funcionarios por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/bedrooms/:id`
+### `/employees/:id`
 
 ### Exemplo de Request:
 ```
@@ -1150,11 +1150,11 @@ Content-type: application/json
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/bedrooms/:id`
+### `/employees/:id`
 
 ### Exemplo de Request:
 ```
-DELETE /bedrooms/9cda28c9-e540-4b2c-bf0c-c90006d37893
+DELETE /employees/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Host: link da api
 Authorization: None
 Content-type: application/json
@@ -1188,3 +1188,251 @@ Vazio
 | Código do Erro  | Descrição           |
 |-----------------|---------------------|
 | 404 Not Found   | bedrooms not found. |
+
+## 4. **Serviços**
+[ Voltar para os Endpoints ](#5-endpoints)
+
+O objeto services é definido como:
+
+| Campo       | Tipo    | Descrição                           |
+| ------------|---------|-------------------------------------|
+| name        | string  | Nome do serviço                     |
+| description | string  | Descrição do serviço                |
+| price       | string  | Preço do serviço                    |
+
+
+### Endpoints
+
+| Método      | Rota          | Descrição                                        |
+|-------------|---------------|--------------------------------------------------|
+| POST        | /services     | Criação de um serviço                            |
+| GET         | /services     | Lista todos os serviços                          |
+| GET         | /services/:id | Lista um serviço usando seu ID como parâmetro    | 
+| PATCH       | /services/:id | atualiza um serviço usando seu ID como parâmetro | 
+| DELETE      | /services/:id | desativa um serviço usando seu ID como parâmetro | 
+
+---
+
+### 4.1. **Criação de serviços**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/services`
+
+### Exemplo de Request:
+```
+POST /services
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+	"name": "Café da manha",
+	"price": 12.99,
+	"description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
+}
+```
+
+### Schema de Validação com Yup:
+```javascript
+	em andamento
+```
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+```
+201 Created
+```
+
+```json
+{
+	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"name": "Café da manha",
+	"price": 12.99,
+	"description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
+	"status": true,
+	"created_at": "2022-05-19T22:18:00.531Z",
+	"updated_at": "2022-05-19T22:18:00.531Z"
+}
+```
+### Possíveis Erros:
+Nenhum
+
+---
+
+### 4.2. **Listando serviços**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/services`
+
+### Exemplo de Request:
+```
+GET /services
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+[
+	{
+	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"name": "Café da manha",
+	"price": 12.99,
+	"description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
+	"status": true,
+	"created_at": "2022-05-19T22:18:00.531Z",
+	"updated_at": "2022-05-19T22:18:00.531Z"
+	}
+]
+```
+
+### Possíveis Erros:
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 4.3. **Listar serviços por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/services/:id`
+
+### Exemplo de Request:
+```
+GET /service/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do serviços       |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"name": "Café da manha",
+	"price": 12.99,
+	"description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
+	"status": true,
+	"created_at": "2022-05-19T22:18:00.531Z",
+	"updated_at": "2022-05-19T22:18:00.531Z"
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | services not found.|
+
+---
+
+### 2.4. **Atualizar serviços por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/services/:id`
+
+### Exemplo de Request:
+```
+PATCH /services/a88858e5-3352-4266-8a3c-40e61c6aa340
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do serviços       |
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"name": "Almoço",
+	"price": 12.99,
+	"description": "Todos os dias almoço disponivel do periodo das 11:00  ás 13:30",
+	"status": true,
+	"created_at": "2022-05-19T22:18:00.531Z",
+	"updated_at": "2022-05-19T22:18:00.531Z"
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição            |
+|-----------------|----------------------|
+| 404 Not Found   | services not found. |
+
+---
+
+### 2.5. **Desativar serviço por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/service/:id`
+
+### Exemplo de Request:
+```
+DELETE /service/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do quartos        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+	"message": "Service deactivated",
+	"status": {
+		"name": "Almoço",
+		"status": false
+	}
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição           |
+|-----------------|---------------------|
+| 404 Not Found   | services not found. |
