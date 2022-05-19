@@ -639,7 +639,7 @@ Content-type: application/json
 
 ### Exemplo de Request:
 ```
-DELETE /bedrooms/9cda28c9-e540-4b2c-bf0c-c90006d37893
+DELETE /bedrooms/9cda28c9-e540-4b2c-bf0c-c90006d37894
 Host: link da api
 Authorization: None
 Content-type: application/json
