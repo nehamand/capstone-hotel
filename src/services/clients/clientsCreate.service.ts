@@ -26,6 +26,10 @@ const createClient = async (data: ClientProps) => {
     throw new AppError("Bedroom not found", 404)
   }
 
+  if (bedroom.clients.length >= bedroom.capacity) {
+    throw new AppError("This bedroom is already full", 400);
+  }
+
   bedroom.availability = false
 
   const newClient = new Client();

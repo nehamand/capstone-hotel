@@ -7,6 +7,7 @@ clientRouter.post('/', ClientsController.store)
 clientRouter.get('/', ClientsController.show)
 clientRouter.get('/:id', ClientsController.index)
 clientRouter.patch('/:id', ClientsController.update)
+clientRouter.patch("/joinbedroom/:id", ClientsController.joinBedroom);
 clientRouter.delete('/:id', ClientsController.delete)
 
 export default clientRouter;
