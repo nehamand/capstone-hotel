@@ -1269,7 +1269,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
 	"name": "Café da manha",
 	"price": 12.99,
 	"description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
@@ -1309,7 +1309,7 @@ Vazio
 ```json
 [
 	{
-	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
 	"name": "Café da manha",
 	"price": 12.99,
 	"description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
@@ -1355,7 +1355,7 @@ Vazio
 ```
 ```json
 {
-	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
 	"name": "Café da manha",
 	"price": 12.99,
 	"description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
@@ -1406,7 +1406,7 @@ Content-type: application/json
 ```
 ```json
 {
-	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
+	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
 	"name": "Almoço",
 	"price": 10,
 	"description": "Todos os dias almoço disponivel do periodo das 11:00  ás 13:30",
