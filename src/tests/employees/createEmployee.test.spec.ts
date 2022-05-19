@@ -27,4 +27,13 @@ describe("POST /employees", () => {
     expect(response.body).toHaveProperty("admin")
     expect(response.body).toHaveProperty("id")
   })
+
+  test("Shouldn't create a new employee with the same cpf", async () => {
+    const response = await request(app)
+      .post("/employees")
+      .send({ name: "John Doe", cpf: "123456789", password: "12345" })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty("message")
+  })
 })

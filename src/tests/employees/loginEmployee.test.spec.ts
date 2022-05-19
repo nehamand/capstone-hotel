@@ -39,4 +39,22 @@ describe("POST /sessions", () => {
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty("token")
   })
+
+  test("Shoudn't login with wrong cpf", async () => {
+    const response = await request(app)
+      .post(`/sessions`)
+      .send({ cpf: "1111111", password })
+
+    expect(response.status).toBe(404)
+    expect(response.body).toHaveProperty("message")
+  })
+
+  test("Shoudn't login with wrong password", async () => {
+    const response = await request(app)
+      .post(`/sessions`)
+      .send({ cpf, password: "wrongcode" })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty("message")
+  })
 })
