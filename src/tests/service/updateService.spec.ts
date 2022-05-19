@@ -60,7 +60,7 @@ describe("UPDATE - /services", () => {
     expect(response.body.updatedService.updated_at).toBeDefined()
   });
 
-  test("TESTE PARA DAR ERRO NO UPDATE", async () => {
+  test("Shouldn't be possible to update one service without admin permission", async () => {
     const employee = {
       name: "Alexandre",
       cpf: "12345678916",
