@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import changeHiredStatusService from "../services/hiredServices/changeStatusHiredService.service";
 import createHiredService from "../services/hiredServices/createHiredService.service";
 import getAllHiredServices from "../services/hiredServices/getAllHIredServices.service";
-import getOneHiredService from "../services/service/getOneService.service";
+import getOneHiredService from "../services/hiredServices/getOneHiredService.service";
 import updateHiredService from "../services/hiredServices/updateHiredService.service";
 
 export default class HiredServicesControllers {
