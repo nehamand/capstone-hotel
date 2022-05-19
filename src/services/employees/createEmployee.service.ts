@@ -30,7 +30,7 @@ const createEmployeeService = async ({
     throw new AppError("Employee need a name.", 400)
   }
 
-  if (!cpf) {
+  if (!password) {
     throw new AppError("Employee need a password.", 400)
   }
 

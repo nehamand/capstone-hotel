@@ -36,4 +36,31 @@ describe("POST /employees", () => {
     expect(response.status).toBe(400)
     expect(response.body).toHaveProperty("message")
   })
+
+  test("Shouldn't create a new employee without name", async () => {
+    const response = await request(app)
+      .post("/employees")
+      .send({ cpf: "1234567891", password: "12345" })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty("message")
+  })
+
+  test("Shouldn't create a new employee without password", async () => {
+    const response = await request(app)
+      .post("/employees")
+      .send({ name: "John Doe", cpf: "1234567891" })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty("message")
+  })
+
+  test("Shouldn't create a new employee without cpf", async () => {
+    const response = await request(app)
+      .post("/employees")
+      .send({ name: "John Doe", password: "12345" })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty("message")
+  })
 })
