@@ -95,23 +95,23 @@ Por enquanto, não foi implementada autenticação.
     - [GET - /bedrooms/:id](#23-listar-quartos-por-id)
     - [PATCH - /bedrooms/:id](#24-atualizar-dados-quartos)
     - [DELETE - /bedrooms/:id](#25-desativar-quartos)
-- [Serviços contratado](#4-hired_services)
+- [Serviços contratado](#3-hired_services)
     - [POST - /hireds](#31-criação-de-contratos)
     - [GET - /hireds](#32-listando-contratos)
     - [GET - /hireds/:id](#33-listar-contratos-por-id)
-    - [DELETE - /hireds/:id](#35-desativar-contratos)
+    - [DELETE - /hireds/:id](#34-desativar-contratos)
 - [Empregados](#4-employees)
-    - [POST - /employees](#26-criação-de-funcionarios)
-    - [GET - /employees](#27-listando-funcionarios)
-    - [GET - /employees/:id](#28-listar-funcionarios-por-id)
-    - [PATCH - /employees/:id](#29-atualizar-dados-funcionarios)
-    - [DELETE - /employees/:id](#30-desativar-funcionarios)
+    - [POST - /employees](#41-criação-de-funcionarios)
+    - [GET - /employees](#42-listando-funcionarios)
+    - [GET - /employees/:id](#43-listar-funcionarios-por-id)
+    - [PATCH - /employees/:id](#44-atualizar-dados-funcionarios)
+    - [DELETE - /employees/:id](#45-desativar-funcionarios)
 - [Serviços](#5-services)
-    - [POST - /services](#31-criação-de-servico)
-    - [GET - /services](#32-listando-servicos)
-    - [GET - /services/:id](#33-listar-servico-por-id)
-    - [PATCH - /services/:id](#34-atualizar-dados-servicos)
-    - [DELETE - /services/:id](#35-desativar-servicos)
+    - [POST - /services](#51-criação-de-servico)
+    - [GET - /services](#52-listando-servicos)
+    - [GET - /services/:id](#53-listar-servico-por-id)
+    - [PATCH - /services/:id](#54-atualizar-dados-servicos)
+    - [DELETE - /services/:id](#55-desativar-servicos)
 
 ---
 
@@ -319,7 +319,12 @@ Content-type: application/json
 
 ### Corpo da Requisição:
 ```json
-Vazio
+{
+	"name": "exampleUpdated",
+	"birthDate": "11/11/2000",
+	"cpf": "00000000000",
+	"cellphone": "00000000000"
+}
 ```
 
 ### Exemplo de Response:
@@ -593,7 +598,12 @@ Content-type: application/json
 
 ### Corpo da Requisição:
 ```json
-Vazio
+{
+	"number": "5",
+	"floor": "5",
+	"capacity": 6,
+	"availability": true
+}
 ```
 
 ### Exemplo de Response:
@@ -1123,6 +1133,16 @@ Content-type: application/json
 |-------------|-------------|---------------------------------------|
 | id          | string      | Identificador único do funcionario    |
 
+### Corpo da Requisição:
+```json
+{
+	"name": "teste1",
+	"cpf": "55555555555",
+	"password": "11111111111",
+	"admin": false
+}
+```
+
 ### Exemplo de Response:
 ```
 200 OK
@@ -1131,8 +1151,8 @@ Content-type: application/json
 {
 	"id": "a88858e5-3352-4266-8a3c-40e61c6aa340",
 	"name": "teste1",
-	"cpf": "66666666666",
-	"admin": true,
+	"cpf": "55555555555",
+	"admin": false,
 	"status": true,
 	"created_at": "2022-05-19T22:18:00.531Z",
 	"updated_at": "2022-05-19T22:18:00.531Z"
@@ -1189,7 +1209,7 @@ Vazio
 |-----------------|---------------------|
 | 404 Not Found   | bedrooms not found. |
 
-## 4. **Serviços**
+## 5. **Serviços**
 [ Voltar para os Endpoints ](#5-endpoints)
 
 O objeto services é definido como:
@@ -1213,7 +1233,7 @@ O objeto services é definido como:
 
 ---
 
-### 4.1. **Criação de serviços**
+### 5.1. **Criação de serviços**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
@@ -1263,7 +1283,7 @@ Nenhum
 
 ---
 
-### 4.2. **Listando serviços**
+### 5.2. **Listando serviços**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -1305,7 +1325,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 4.3. **Listar serviços por ID**
+### 5.3. **Listar serviços por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -1352,7 +1372,7 @@ Vazio
 
 ---
 
-### 2.4. **Atualizar serviços por ID**
+### 5.4. **Atualizar serviços por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -1371,6 +1391,15 @@ Content-type: application/json
 |-------------|-------------|---------------------------------------|
 | id          | string      | Identificador único do serviços       |
 
+### Corpo da Requisição:
+```json
+{
+	"name": "Almoço",
+	"price": 10,
+	"description": "Todos os dias almoço disponivel do periodo das 11:00  ás 13:30",
+}
+```
+
 ### Exemplo de Response:
 ```
 200 OK
@@ -1379,7 +1408,7 @@ Content-type: application/json
 {
 	"id": 9cda28c9-e540-4b2c-bf0c-c90006d37893,
 	"name": "Almoço",
-	"price": 12.99,
+	"price": 10,
 	"description": "Todos os dias almoço disponivel do periodo das 11:00  ás 13:30",
 	"status": true,
 	"created_at": "2022-05-19T22:18:00.531Z",
@@ -1394,7 +1423,7 @@ Content-type: application/json
 
 ---
 
-### 2.5. **Desativar serviço por ID**
+### 5.5. **Desativar serviço por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
