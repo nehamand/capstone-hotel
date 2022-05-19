@@ -47,8 +47,6 @@ const createHiredService = async (data: createProps) => {
 
   data.bedroom_number = findBedroom.number
 
-
-
   let startDate = new Date(data.start_date).getTime() / 1000;
   let endDate = new Date(data.end_date).getTime() / 1000;
 

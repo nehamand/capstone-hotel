@@ -31,13 +31,12 @@ export default class ClientsController {
   };
   static update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { name, birthDate, cpf, cellphone, bedroomId } = req.body;
+    const { name, birthDate, cpf, cellphone } = req.body;
     const client = await updateClient(id, {
       name,
       birthDate,
       cpf,
       cellphone,
-      bedroomId,
     });
     return res.status(201).json(client);
   };

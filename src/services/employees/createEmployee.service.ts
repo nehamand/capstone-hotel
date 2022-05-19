@@ -26,18 +26,6 @@ const createEmployeeService = async ({
     throw new AppError("Employee with this cpf already exists.", 400)
   }
 
-  if (!name) {
-    throw new AppError("Employee need a name.", 400)
-  }
-
-  if (!password) {
-    throw new AppError("Employee need a password.", 400)
-  }
-
-  if (!cpf) {
-    throw new AppError("Employee need a cpf.", 400)
-  }
-
   const newEmployee = new Employee()
   newEmployee.name = name
   newEmployee.cpf = cpf
