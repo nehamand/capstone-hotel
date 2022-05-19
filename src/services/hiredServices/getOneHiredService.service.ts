@@ -1,17 +1,25 @@
 import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
-import Service from "../../models/Services";
+import HiredServices from "../../models/HiredServices";
+import formatHiredServiceData from "../../utils/formatHiredServiceData";
 
-const getOneService = async (id: number) => {
-  const serviceRepository = AppDataSource.getRepository(Service);
+const getOneHiredService = async (id: number) => {
+  const hiredServiceRepository = AppDataSource.getRepository(HiredServices);
 
-  const service = await serviceRepository.findOne({ where: { id } });
+  const hiredService = await hiredServiceRepository
+    .createQueryBuilder("hired_service")
+    .innerJoinAndSelect("hired_service.service", "services")
+    .innerJoinAndSelect("hired_service.client", "clients")
+    .where(`hired_service.id = ${id}`)
+    .getOne();
 
-  if (!service) {
-    throw new AppError("Service not found", 400);
+  if(!hiredService){
+    throw new AppError("Hired Service not found", 404)
   }
 
-  return service;
+  const hiredServiceFormated = formatHiredServiceData({ hiredService })
+
+  return hiredServiceFormated;
 };
 
-export default getOneService;
+export default getOneHiredService;
