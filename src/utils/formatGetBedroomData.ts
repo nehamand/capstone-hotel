@@ -10,6 +10,7 @@ const formatGetBedroomData = ({ bedroom }: Props) => {
     number: bedroom.number,
     floor: bedroom.floor,
     capacity: bedroom.capacity,
+    availability: bedroom.availability,
     created_at: bedroom.created_at,
     updated_at: bedroom.updated_at,
     status: bedroom.status,
