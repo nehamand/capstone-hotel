@@ -298,7 +298,7 @@ Vazio
 
 ---
 
-### 0.1. **Atualizar clientes por ID**
+### 1.4. **Atualizar clientes por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
