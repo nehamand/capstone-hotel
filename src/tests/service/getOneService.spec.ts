@@ -102,7 +102,7 @@ describe("GET BY ID - /services", () => {
       expect(response.body).toHaveProperty("message")
   });
 
-  test("TESTE PARA DAR ERRO", async () => {
+  test("Shouldn't be possible to return one service without admin permission", async () => {
 
 
     const employee = {
