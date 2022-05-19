@@ -4,7 +4,7 @@ interface Props {
   client: Client;
 }
 
-const formatClientData = ({ client }: Props) => {
+const formatCreateClientData = ({ client }: Props) => {
   const formatedClient = {
     id: client.id,
     name: client.name,
@@ -27,4 +27,4 @@ const formatClientData = ({ client }: Props) => {
   return formatedClient;
 };
 
-export default formatClientData;
+export default formatCreateClientData;
