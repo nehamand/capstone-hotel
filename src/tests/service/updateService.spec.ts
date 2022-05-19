@@ -59,4 +59,40 @@ describe("UPDATE - /services", () => {
     expect(response.body.message).toBeDefined()
     expect(response.body.updatedService.updated_at).toBeDefined()
   });
+
+  test("TESTE PARA DAR ERRO NO UPDATE", async () => {
+    const employee = {
+      name: "Alexandre",
+      cpf: "12345678916",
+      password: "123456",
+      status: true,
+      admin: false,
+    };
+
+    await createEmployeeService(employee);
+
+    const login = {
+      cpf: employee.cpf,
+      password: employee.password,
+    };
+
+    const res = await sessionService(login);
+
+    const service = {
+      name: "Hospedagem Simples",
+      price: 200,
+      description: "Hospedagem simple com café da manha",
+    };
+
+    const serviceCreated = await createService(service);
+
+    const response = await request(app)
+      .patch(`/services/${serviceCreated.id}`)
+      .set({
+        Authorization: `Bearer ${res.token}`,
+      }).send({name: "Hospedagem Premium"})
+
+      expect(response.status).toBe(401)
+      expect(response.body).toHaveProperty("message")
+  })
 });
