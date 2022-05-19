@@ -95,12 +95,11 @@ describe("GET - /services", () => {
 
     await createService(service);
 
-    const response = await request(app)
-      .get("/services")
-      .set({
-        Authorization: `Bearer ${res.token}`,
-      });
+    const response = await request(app).get("/services")
+
+    console.log(response.body)
 
       expect(response.status).toBe(401)
+      expect(response.body).toHaveProperty("message")
   });
 });
