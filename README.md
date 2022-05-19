@@ -1215,39 +1215,40 @@ Vazio
 | 404 Not Found   | clients not found. |
 
 
-## 2. **Quartos**
+## 4. **Empregados**
 [ Voltar para os Endpoints ](#5-endpoints)
 
-O objeto bedroom é definido como:
+O objeto employeers é definido como:
 
-| Campo          | Tipo    | Descrição                                       |
-| ---------------|---------|-------------------------------------------------|
-| number         | string  | Número do quarto                                |
-| floor          | string  | Número do andar                                 |
-| capacity       | number  | Capacidade maxima de pessoas no quarto          |
-| availability   | boolean | Sé o quarto está ocupado ou não                 |
+| Campo    | Tipo    | Descrição                             |
+| ---------|---------|---------------------------------------|
+| name     | string  | Nome do empregado                     |
+| cpf      | string  | Número com 11 digitos                 |
+| password | string  | Senha de acesso                       |
+| admin    | boolean | Permissão de controle total na api    |
+| status   | boolean | Se o usuário está ativo ou não        |
 
 ### Endpoints
 
-| Método      | Rota         | Descrição                                        |
-|-------------|--------------|--------------------------------------------------|
-| POST        | /bedrooms     | Criação de um quartos                           |
-| GET         | /bedrooms     | Lista todos os quartos                          |
-| GET         | /bedrooms/:id | Lista um quarto usando seu ID como parâmetro    | 
-| PATCH       | /bedrooms/:id | atualiza um quarto usando seu ID como parâmetro | 
-| DELETE      | /bedrooms/:id | desativa um quarto usando seu ID como parâmetro | 
+| Método      | Rota            | Descrição                                            |
+|-------------|-----------------|------------------------------------------------------|
+| POST        | /employeers     | Criação de um funcionarios                           |
+| GET         | /employeers     | Lista todos os funcionarios                          |
+| GET         | /employeers/:id | Lista um funcionario usando seu ID como parâmetro    | 
+| PATCH       | /employeers/:id | atualiza um funcionario usando seu ID como parâmetro | 
+| DELETE      | /employeers/:id | desativa um funcionario usando seu ID como parâmetro | 
 
 ---
 
-### 2.1. **Criação de Quartos**
+### 2.1. **Criação de Funcionarios**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-### `/bedrooms`
+### `/employeers`
 
 ### Exemplo de Request:
 ```
-POST /bedrooms
+POST /employeers
 Host: link da api
 Authorization: None
 Content-type: application/json
