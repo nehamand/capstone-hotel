@@ -64,7 +64,7 @@ describe("GET BY ID - /services", () => {
       })
     );
   });
-  test("TESTE PARA DAR ERRO", async () => {
+  test("Shouldn't be possible to return one service whith id not exists without admin permission", async () => {
 
 
     const employee = {
@@ -92,12 +92,7 @@ describe("GET BY ID - /services", () => {
 
     const serviceCreated = await createService(service);
 
-    const response = await request(app)
-      .get(`/services/${serviceCreated.id}`)
-      .set({
-        Authorization: `Bearer ${res.token}`,
-      });
-
+    const response = await request(app).get(`/services/${serviceCreated.id}`)
       expect(response.status).toBe(401)
       expect(response.body).toHaveProperty("message")
   });
@@ -110,7 +105,7 @@ describe("GET BY ID - /services", () => {
       cpf: "12345678918",
       password: "123456",
       status: true,
-      admin: true,
+      admin: false,
     };
 
     await createEmployeeService(employee);
@@ -130,13 +125,9 @@ describe("GET BY ID - /services", () => {
 
     await createService(service);
 
-    const response = await request(app)
-      .get(`/services/8`)
-      .set({
-        Authorization: `Bearer ${res.token}`,
-      });
+    const response = await request(app).get(`/services/8`)
 
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(401)
       expect(response.body).toHaveProperty("message")
   });
 });
