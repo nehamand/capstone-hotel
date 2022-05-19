@@ -95,6 +95,5 @@ describe("Testing success cases in the route /services", () => {
 
       expect(response.status).toBe(401);
       expect(response.body.message).toBeDefined()
-
   });
 });
