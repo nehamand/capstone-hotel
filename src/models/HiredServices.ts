@@ -31,16 +31,14 @@ class HiredServices {
   @ManyToOne(() => Service, (service) => service.hiredServices)
   service: Service;
 
+  @Column()
+  bedroom_number: string;
+
   @Column({ default: false })
   paid: boolean;
 
   @Column({ type: "decimal", precision: 10, scale: 2 })
   total_price: number;
-
-  // @Expose({name: "total_price"})
-  // getTotalPrice(): number {
-  //   return this.services.reduce((acc, actual) => acc + Number(actual.price), 0)
-  // }
 
   @CreateDateColumn()
   created_at: Date;

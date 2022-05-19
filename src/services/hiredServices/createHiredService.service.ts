@@ -1,14 +1,16 @@
 import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
+import Bedroom from "../../models/Bedrooms";
 import Client from "../../models/Clients";
 import HiredServices from "../../models/HiredServices";
 import Service from "../../models/Services";
 
 interface createProps {
-  clientId?: string;
-  serviceId?: number;
+  clientId: string;
+  serviceId: number;
   start_date: string;
   end_date: string;
+  bedroom_number?: string;
   status?: boolean;
 }
 
@@ -33,14 +35,30 @@ const createHiredService = async (data: createProps) => {
     throw new AppError("Client not found", 404);
   }
 
-  console.log(new Date(data.start_date))
+  const bedroomRepository = AppDataSource.getRepository(Bedroom)
+  const bedroom = await bedroomRepository.find()
+
+  const findBedroom = bedroom.find(bedroom => bedroom.clients.find(bedClient => bedClient.id === client.id))
+
+  if(!findBedroom){
+    throw new AppError("Client bedrooms not exists", 404)
+  }
+
+  data.bedroom_number = findBedroom.number
+
+
 
   let startDate = new Date(data.start_date).getTime() / 1000;
   let endDate = new Date(data.end_date).getTime() / 1000;
 
   let timeDifference = endDate - startDate;
 
+  
   let dayDifference = timeDifference / 86400;
+  
+  if(dayDifference <= 0){
+    throw new AppError("The date difference must be at least 1 day", 400);
+  }
 
   let total_price = service.price * dayDifference;
   total_price = Number(total_price.toFixed(2))
@@ -53,7 +71,33 @@ const createHiredService = async (data: createProps) => {
   });
 
   await hiredServiceRepository.save(hiredService);
-  return { message: "Hired service created", hiredService };
+  
+  const filteresHiredService = {
+    id: hiredService.id,
+    paid: hiredService.paid,
+    start_date: hiredService.start_date,
+    end_date: hiredService.end_date,
+    bedroom_number: hiredService.bedroom_number,
+    total_price: hiredService.total_price,
+    created_at: hiredService.created_at,
+    updated_at: hiredService.updated_at,
+    status: true,
+    client: {
+      id: hiredService.client.id,
+      name: hiredService.client.name,
+      cpf: hiredService.client.cpf,
+      status: hiredService.client.status,
+    },
+    service: {
+      id: hiredService.service.id,
+      name: hiredService.service.name,
+      price: hiredService.service.price,
+      description: hiredService.service.description,
+      status: hiredService.service.status,
+    },
+  };
+
+  return filteresHiredService;
 };
 
 export default createHiredService;
