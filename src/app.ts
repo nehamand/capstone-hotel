@@ -1,8 +1,9 @@
 import "express-async-errors"
-import express from "express"
 import "reflect-metadata"
-import routes from "./routes"
+
 import errorHandling from "./middlewares/errorHandling.middleware"
+import express from "express"
+import routes from "./routes"
 
 const app = express()
 

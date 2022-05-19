@@ -1,4 +1,5 @@
-import {Request, Response, NextFunction} from "express"
+import {NextFunction, Request, Response} from "express"
+
 import AppError from "../errors/AppError"
 
 export default function (
@@ -12,8 +13,6 @@ export default function (
       message: error.message,
     })
   }
-
-  console.log(error)
 
   return res.status(500).json({message: "Internal server error!"})
 }

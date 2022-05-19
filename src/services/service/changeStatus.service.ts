@@ -2,7 +2,7 @@ import {AppDataSource} from "../../data-source"
 import AppError from "../../errors/AppError"
 import Service from "../../models/Services"
 
-const changeStatusService = async (id: string) => {
+const changeStatusService = async (id: number) => {
   const serviceRepository = AppDataSource.getRepository(Service)
 
   const service = await serviceRepository.findOne({where: {id}})

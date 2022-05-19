@@ -1,5 +1,5 @@
-import { Router } from "express"
-import employeeControllers from "../controllers/employees/employees.controllers"
+import {Router} from "express"
+import employeeControllers from "../controllers/employees.controllers"
 import ensureAuth from "../middlewares/ensureAuth.middleware"
 
 const employeeRouter = Router()

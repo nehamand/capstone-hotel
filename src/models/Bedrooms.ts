@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
+  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -12,15 +12,15 @@ import Client from "./Clients"
 
 @Entity("bedrooms")
 class Bedroom {
-  @PrimaryGeneratedColumn("uuid")
-  id: string
+  @PrimaryGeneratedColumn()
+  readonly id: number
 
   // relacionamento 1:N - quartos e clientes
   @OneToMany(() => Client, (client) => client.bedroom, {
     eager: true,
   })
-  @JoinTable()
-  clients: Client
+  @JoinColumn()
+  clients: Client[]
 
   @Column({length: 4})
   number: string
