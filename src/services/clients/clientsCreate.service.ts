@@ -2,7 +2,7 @@ import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
 import Bedroom from "../../models/Bedrooms";
 import Client from "../../models/Clients";
-import formatClientData from "../../utils/formatClientData";
+import formatClientData from "../../utils/formatCreateClientData";
 
 interface ClientProps {
   name: string;
