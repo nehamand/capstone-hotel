@@ -66,4 +66,41 @@ describe("GET - /services", () => {
       ])
     );
   });
+
+  test("TESTE PARA DAR ERRO", async () => {
+
+
+    const employee = {
+      name: "Alexandre",
+      cpf: "12345678911",
+      password: "123456",
+      status: true,
+      admin: false,
+    };
+
+    await createEmployeeService(employee);
+
+    const login = {
+      cpf: employee.cpf,
+      password: employee.password,
+    };
+
+    const res = await sessionService(login);
+
+    const service = {
+      name: "Hospedagem Simples",
+      price: 200,
+      description: "Hospedagem simple com café da manha",
+    };
+
+    await createService(service);
+
+    const response = await request(app)
+      .get("/services")
+      .set({
+        Authorization: `Bearer ${res.token}`,
+      });
+
+      expect(response.status).toBe(401)
+  });
 });
