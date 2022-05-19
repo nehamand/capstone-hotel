@@ -67,7 +67,7 @@ describe("GET - /services", () => {
     );
   });
 
-  test("TESTE PARA DAR ERRO", async () => {
+  test("Should not be possible to return all services without admin permission", async () => {
 
 
     const employee = {
