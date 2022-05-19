@@ -61,21 +61,11 @@ describe("POST - /services", () => {
         description: service.description
     }))
   });
-});
+  test("TESTE PARA DAR ERRO", async () => {
 
-describe("POST - /services", () => {
-  let connection: DataSource;
-  let token = "";
-
-  beforeAll(async () => {
-    await AppDataSource.initialize()
-      .then((res) => (connection = res))
-      .catch((err) =>
-        console.error("Error during Data Source initialization", err)
-      );
     const employee = {
       name: "Alexandre",
-      cpf: "12345678910",
+      cpf: "12345678911",
       password: "123456",
       status: true,
       admin: false,
@@ -90,14 +80,6 @@ describe("POST - /services", () => {
 
     const res = await sessionService(login);
 
-    token = res.token;
-  });
-
-  afterAll(async () => {
-    await connection.destroy();
-  });
-
-  test("TESTE PARA DAR ERRO", async () => {
     const service = {
       name: "Hospedagem Simples",
       price: 200,
@@ -107,62 +89,12 @@ describe("POST - /services", () => {
     const response = await request(app)
       .post("/services")
       .set({
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${res.token}`,
       })
       .send(service);
 
-    expect(response.status).toBe(401);
-    expect(response.body.message).toBeDefined()
-  });
-});
+      expect(response.status).toBe(401);
+      expect(response.body.message).toBeDefined()
 
-describe("POST - /services", () => {
-  let connection: DataSource;
-  let token = "";
-
-  beforeAll(async () => {
-    await AppDataSource.initialize()
-      .then((res) => (connection = res))
-      .catch((err) =>
-        console.error("Error during Data Source initialization", err)
-      );
-    const employee = {
-      name: "Alexandre",
-      cpf: "12345678910",
-      password: "123456",
-      status: true,
-      admin: true,
-    };
-
-    await createEmployeeService(employee);
-
-    const login = {
-      cpf: employee.cpf,
-      password: employee.password,
-    };
-
-    const res = await sessionService(login);
-
-    token = res.token;
-  });
-
-  afterAll(async () => {
-    await connection.destroy();
-  });
-
-  test("TESTE PARA DAR ERRO", async () => {
-    const service = {
-      name: "Hospedagem Simples",
-      price: 200
-    };
-
-    const response = await request(app)
-      .post("/services")
-      .set({
-        Authorization: `Bearer ${token}`,
-      })
-      .send(service);
-
-    expect(response.status).toBe(500);
   });
 });
