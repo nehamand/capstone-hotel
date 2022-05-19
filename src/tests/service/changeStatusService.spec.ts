@@ -6,7 +6,7 @@ import request from "supertest";
 import app from "../../app";
 import createService from "../../services/service/createService.service";
 
-describe("POST - /service", () => {
+describe("DELETE - /services", () => {
   let connection: DataSource;
   let token = "";
 
@@ -21,7 +21,7 @@ describe("POST - /service", () => {
       cpf: "12345678910",
       password: "123456",
       status: true,
-      admin: false,
+      admin: true,
     };
 
     await createEmployeeService(employee);
