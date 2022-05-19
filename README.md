@@ -87,7 +87,7 @@ Por enquanto, não foi implementada autenticação.
     - [POST - /clients](#11-criação-de-clientes)
     - [GET - /clients](#12-listando-clientes)
     - [GET - /clients/:id](#13-listar-clientes-por-id)
-    - [PATCH - /clients/:id](#01-atualizar-dados-clientes)
+    - [PATCH - /clients/:id](#14-atualizar-clientes-por-id)
     - [DELETE - /clients/:id](#15-desativar-clientes)
 - [Quartos](#2-bedrooms)
     - [POST - /bedrooms](#21-criação-de-quartos)
