@@ -938,3 +938,552 @@ Vazio
 | Código do Erro  | Descrição           |
 |-----------------|---------------------|
 | 404 Not Found   | hireds not found.   |
+
+## 1. **Clientes**
+[ Voltar para os Endpoints ](#5-endpoints)
+
+O objeto clients é definido como:
+
+| Campo          | Tipo    | Descrição                                       |
+| ---------------|---------|-------------------------------------------------|
+| name           | string  | O nome do usuário.                              |
+| birthDate      | string  | Data de aniversário no formato YYYY-MM-DD       |
+| cpf            | string  | Número com 11 digitos                           |
+| cellphone      | string  | Número de telefone celular                      |
+
+### Endpoints
+
+| Método      | Rota         | Descrição                                        |
+|-------------|--------------|--------------------------------------------------|
+| POST        | /clients     | Criação de um clientes                           |
+| GET         | /clients     | Lista todos os clientes                          |
+| GET         | /clients/:id | Lista um cliente usando seu ID como parâmetro    | 
+| PATCH       | /clients/:id | atualiza um cliente usando seu ID como parâmetro | 
+| DELETE      | /clients/:id | desativa um cliente usando seu ID como parâmetro |  
+
+---
+
+### 1.1. **Criação de Clientes**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/clients`
+
+### Exemplo de Request:
+```
+POST /clientes
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+	"name": "bryan",
+	"birthDate": "30/10/2002",
+	"cpf": "16712345245",
+	"cellphone": "68999943321"
+}
+```
+
+### Schema de Validação com Yup:
+```javascript
+	em andamento
+```
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+```
+201 Created
+```
+
+```json
+{
+	"name": "bryan",
+	"birthDate": "30/10/2002",
+	"cpf": "16712345245",
+	"cellphone": "68999943321",
+	"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+	"created_at": "2022-05-18T00:36:36.901Z",
+	"updated_at": "2022-05-18T00:36:36.901Z",
+	"status": true
+}
+```
+### Possíveis Erros:
+| Código do Erro | Descrição                     |
+|----------------|-------------------------------|
+| 400 Conflict   | cpf already registered        |
+| 400 Conflict   | cellphone already registered  |
+
+---
+
+### 1.2. **Listando Clientes**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients`
+
+### Exemplo de Request:
+```
+GET /clients
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+[
+	{
+		"id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
+		"name": "example1",
+		"cpf": "00000000000",
+		"birthDate": "2000-11-11T05:00:00.000Z",
+		"cellphone": "00000000000",
+		"created_at": "2022-05-17T23:58:32.438Z",
+		"updated_at": "2022-05-17T23:58:32.438Z",
+		"status": true,
+		"hired_services": []
+	},
+	{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"name": "example2",
+		"cpf": "11111111111",
+		"birthDate": "2001-11-11T04:31:12.000Z",
+		"cellphone": "11111111111",
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"hired_services": []
+	}
+]
+```
+
+### Possíveis Erros:
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 1.3. **Listar clientes por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients/:id`
+
+### Exemplo de Request:
+```
+GET /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do cliente        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
+		"name": "example1",
+		"cpf": "00000000000",
+		"birthDate": "2000-11-11T05:00:00.000Z",
+		"cellphone": "00000000000",
+		"created_at": "2022-05-17T23:58:32.438Z",
+		"updated_at": "2022-05-17T23:58:32.438Z",
+		"status": true,
+		"hired_services": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | clients not found. |
+
+---
+
+### 1.4. **Atualizar clientes por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients/:id`
+
+### Exemplo de Request:
+```
+PATCH /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do cliente        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
+		"name": "exampleUpdated",
+		"cpf": "00000000000",
+		"birthDate": "2000-11-11T05:00:00.000Z",
+		"cellphone": "00000000000",
+		"created_at": "2022-05-17T23:58:32.438Z",
+		"updated_at": "2022-05-17T23:58:32.438Z",
+		"status": true,
+		"hired_services": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | clients not found. |
+
+---
+
+### 1.5. **Desativar clientes por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients/:id`
+
+### Exemplo de Request:
+```
+DELETE /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do cliente        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+	"message": "Service Disabled",
+	"service": {
+		"name": "example1",
+		"status": false
+	}
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | clients not found. |
+
+
+## 2. **Quartos**
+[ Voltar para os Endpoints ](#5-endpoints)
+
+O objeto bedroom é definido como:
+
+| Campo          | Tipo    | Descrição                                       |
+| ---------------|---------|-------------------------------------------------|
+| number         | string  | Número do quarto                                |
+| floor          | string  | Número do andar                                 |
+| capacity       | number  | Capacidade maxima de pessoas no quarto          |
+| availability   | boolean | Sé o quarto está ocupado ou não                 |
+
+### Endpoints
+
+| Método      | Rota         | Descrição                                        |
+|-------------|--------------|--------------------------------------------------|
+| POST        | /bedrooms     | Criação de um quartos                           |
+| GET         | /bedrooms     | Lista todos os quartos                          |
+| GET         | /bedrooms/:id | Lista um quarto usando seu ID como parâmetro    | 
+| PATCH       | /bedrooms/:id | atualiza um quarto usando seu ID como parâmetro | 
+| DELETE      | /bedrooms/:id | desativa um quarto usando seu ID como parâmetro | 
+
+---
+
+### 2.1. **Criação de Quartos**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/bedrooms`
+
+### Exemplo de Request:
+```
+POST /bedrooms
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+	"number": "5",
+	"floor": "4",
+	"capacity": 5,
+	"availability": true
+}
+```
+
+### Schema de Validação com Yup:
+```javascript
+	em andamento
+```
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+```
+201 Created
+```
+
+```json
+{
+	"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+	"number": "5",
+	"floor": "4",
+	"capacity": 5,
+	"availability": true,
+	"created_at": "2022-05-18T00:36:36.901Z",
+	"updated_at": "2022-05-18T00:36:36.901Z",
+	"status": true,
+	"clients": []
+}
+```
+### Possíveis Erros:
+Nenhum
+
+---
+
+### 2.2. **Listando Quartos**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms`
+
+### Exemplo de Request:
+```
+GET /bedrooms
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+[
+	{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"number": "5",
+		"floor": "4",
+		"capacity": 5,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+	}, 
+	{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba999",
+		"number": "3",
+		"floor": "1",
+		"capacity": 2,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+	}
+]
+```
+
+### Possíveis Erros:
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 2.3. **Listar quartos por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms/:id`
+
+### Exemplo de Request:
+```
+GET /bedrooms/dd622e7a-e0df-470e-8834-91b5320ba970
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do quarto         |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"number": "5",
+		"floor": "4",
+		"capacity": 5,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição          |
+|-----------------|--------------------|
+| 404 Not Found   | bedrooms not found. |
+
+---
+
+### 2.4. **Atualizar quarto por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms/:id`
+
+### Exemplo de Request:
+```
+PATCH /bedrooms/dd622e7a-e0df-470e-8834-91b5320ba970
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do quarto         |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+		"id": "dd622e7a-e0df-470e-8834-91b5320ba970",
+		"number": "5",
+		"floor": "5",
+		"capacity": 6,
+		"availability": true,
+		"created_at": "2022-05-18T00:36:36.901Z",
+		"updated_at": "2022-05-18T00:36:36.901Z",
+		"status": true,
+		"clients": []
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição           |
+|-----------------|---------------------|
+| 404 Not Found   | bedrooms not found. |
+
+---
+
+### 2.5. **Desativar quartos por ID**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/bedrooms/:id`
+
+### Exemplo de Request:
+```
+DELETE /bedrooms/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| id          | string      | Identificador único do quartos        |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+    "message": "Bedroom disabled",
+    "bedroom": {
+      "status": false,
+      "number": "5",
+    }
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição           |
+|-----------------|---------------------|
+| 404 Not Found   | bedrooms not found. |
