@@ -10,51 +10,44 @@ import {
 import Client from "./Clients"
 import Service from "./Services"
 
+import {Expose} from "class-transformer"
+
 @Entity("hired_services")
 class HiredServices {
-  @PrimaryGeneratedColumn("uuid")
-  id: string
+  @PrimaryGeneratedColumn()
+  readonly id: number;
 
-  @Column({default: "now()"})
-  start_date: Date
+  @Column({ default: "now()" })
+  start_date: Date;
 
   @Column()
-  end_date: Date
-
-  @Column({unique: true})
-  cellphone: string
+  end_date: Date;
 
   // relacionamento N:N clientes e serviços -- cliente como donos
-  @ManyToOne(() => Client)
-  clients: Client
+  @ManyToOne(() => Client, (clients) => clients.hiredServices)
+  client: Client;
 
   // relacionamento N:N clientes e serviços -- cliente como donos
-  @ManyToOne(() => Service)
-  services: Service
+  @ManyToOne(() => Service, (service) => service.hiredServices)
+  service: Service;
 
-  @Column({default: false})
-  paid: boolean
+  @Column()
+  bedroom_number: string;
 
-  @Column({type: "decimal", precision: 10, scale: 2})
-  total_price: number
+  @Column({ default: false })
+  paid: boolean;
 
-  // total price
-  // @Expose({ name: "total_price" })
-  // getTotalPrice(): number {
-  //   return this.services.reduce(
-  //     (acc, actual) => acc + Number(actual.price),
-  //     0
-  //   );
-  // }
+  @Column({ type: "decimal", precision: 10, scale: 2 })
+  total_price: number;
 
   @CreateDateColumn()
-  created_at: Date
+  created_at: Date;
 
   @UpdateDateColumn()
-  updated_at: Date
+  updated_at: Date;
 
-  @Column({default: true})
-  status: boolean
+  @Column({ default: true })
+  status: boolean;
 }
 
 export default HiredServices

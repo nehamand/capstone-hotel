@@ -12,18 +12,15 @@ import { Exclude } from "class-transformer"
 @Entity("employees")
 class Employee {
   @PrimaryGeneratedColumn("uuid")
-  id: string
+  readonly id: string
 
   @Column({ length: 128 })
   name: string
 
-  // @Column()
-  // email: string;
-
   @Column({ unique: true, length: 11 })
   cpf: string
 
-  @Exclude()
+  @Exclude() //Esconde esse campo quando der um get
   @Column()
   password: string
 

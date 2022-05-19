@@ -1,12 +1,26 @@
-import { Router } from "express"
-import employeeControllers from "../controllers/employees/employees.controllers"
+import {Router} from "express"
+import employeeControllers from "../controllers/employees.controllers"
+import ensureAuth from "../middlewares/ensureAuth.middleware"
+
+import {expressYupMiddleware} from "express-yup-middleware"
+import createEmployeeSchema from "../validations/employees/createEmployee.validation"
+import updateEmployeeSchema from "../validations/employees/updateEmployee.validation"
 
 const employeeRouter = Router()
 
-employeeRouter.get("/", employeeControllers.index)
-employeeRouter.get("/:id", employeeControllers.show)
-employeeRouter.post("/", employeeControllers.store)
-employeeRouter.patch("/:id", employeeControllers.update)
-employeeRouter.delete("/:id", employeeControllers.delete)
+employeeRouter.get("/", ensureAuth, employeeControllers.index)
+employeeRouter.get("/:id", ensureAuth, employeeControllers.show)
+employeeRouter.post(
+  "/",
+  expressYupMiddleware({schemaValidator: createEmployeeSchema}),
+  employeeControllers.store
+)
+employeeRouter.patch(
+  "/:id",
+  expressYupMiddleware({schemaValidator: updateEmployeeSchema}),
+  ensureAuth,
+  employeeControllers.update
+)
+employeeRouter.delete("/:id", ensureAuth, employeeControllers.delete)
 
 export default employeeRouter

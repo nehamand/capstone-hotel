@@ -16,12 +16,13 @@ export default function ensureAuth(
   try {
     const [, token] = authHeader.split(" ")
     const secret = process.env.SECRET_KEY || "default"
-    const decoded = verify(token, secret)
+    const decoded = verify(token, secret) as any
 
-    const {sub} = decoded
+    const {sub, isAdmin} = decoded
 
     request.user = {
       id: sub as string,
+      isAdmin,
     }
 
     return next()

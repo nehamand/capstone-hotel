@@ -25,7 +25,7 @@ class ServiceController {
   static async show(req: Request, res: Response) {
     const {id} = req.params
 
-    const service = await getOneService(id)
+    const service = await getOneService(Number(id))
 
     return res.status(200).json(service)
   }
@@ -34,7 +34,7 @@ class ServiceController {
     const {id} = req.params
     const {name, price, description, status} = req.body
 
-    const updatedService = await updateService(id, {
+    const updatedService = await updateService(Number(id), {
       name,
       price,
       description,
@@ -47,7 +47,7 @@ class ServiceController {
   static async delete(req: Request, res: Response) {
     const {id} = req.params
 
-    const changeService = await changeStatusService(id)
+    const changeService = await changeStatusService(Number(id))
 
     return res.status(200).json(changeService)
   }

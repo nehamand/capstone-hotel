@@ -3,23 +3,29 @@ import AppError from "../../errors/AppError";
 import Client from "../../models/Clients";
 
 interface UpdateProps {
-    name: string;
-    birthDate: Date;
-    cpf: string;
-    cellphone: string;
+  name: string;
+  birthDate: Date;
+  cpf: string;
+  cellphone?: string;
+  bedroomId: number;
 }
 
-const updateClient = async (id: string, data:UpdateProps) => {
-    const clientRepository = AppDataSource.getRepository(Client);
-    const client = await clientRepository.findOne({where:{id}});
+const updateClient = async (id: string, data: UpdateProps) => {
+  const clientRepository = AppDataSource.getRepository(Client);
+  const client = await clientRepository.findOne({ where: { id } });
 
-    if (!client) {
-        throw new AppError("client not found", 400);
-      }
+  if (!client) {
+    throw new AppError("client not found", 404);
+  }
 
-      const updatedClients = await clientRepository.save({...data, id});
+  data.cellphone = data.cellphone ? data.cellphone : client.cellphone
 
-      return {message: "Client updated", updatedClients}
-}
+  const updatedClients = await clientRepository.save({
+    ...data,
+    id
+  });
+
+  return updatedClients;
+};
 
 export default updateClient;

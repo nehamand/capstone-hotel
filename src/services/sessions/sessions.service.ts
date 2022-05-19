@@ -1,6 +1,6 @@
-import { compare } from "bcryptjs"
-import { sign } from "jsonwebtoken"
-import { AppDataSource } from "../../data-source"
+import {compare} from "bcryptjs"
+import {sign} from "jsonwebtoken"
+import {AppDataSource} from "../../data-source"
 import AppError from "../../errors/AppError"
 import Employee from "../../models/Employees"
 
@@ -21,7 +21,7 @@ export const sessionService = async ({
   const employeeRepository = AppDataSource.getRepository(Employee)
 
   const employee = await employeeRepository.findOne({
-    where: { cpf },
+    where: {cpf},
   })
 
   if (!employee) {
@@ -34,10 +34,14 @@ export const sessionService = async ({
     throw new AppError("Incorrect cpf/password")
   }
 
-  const token = sign({}, process.env.SECRET_KEY || "default", {
-    subject: employee.id,
-    expiresIn: "3d",
-  })
+  const token = sign(
+    {isAdmin: employee.admin},
+    process.env.SECRET_KEY || "default",
+    {
+      subject: employee.id,
+      expiresIn: "3d",
+    }
+  )
 
   return {
     employee,
