@@ -5,7 +5,7 @@ import { sessionService } from "../../services/sessions/sessions.service";
 import request from "supertest";
 import app from "../../app";
 
-describe("POST - /services", () => {
+describe("Testing success cases in the route /services", () => {
   let connection: DataSource;
   let token = "";
 
@@ -61,7 +61,7 @@ describe("POST - /services", () => {
         description: service.description
     }))
   });
-  test("TESTE PARA DAR ERRO", async () => {
+  test("Should not be possible to create a new service without admin permission", async () => {
 
     const employee = {
       name: "Alexandre",
