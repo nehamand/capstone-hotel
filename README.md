@@ -87,7 +87,7 @@ Por enquanto, não foi implementada autenticação.
     - [POST - /clients](#11-criação-de-clientes)
     - [GET - /clients](#12-listando-clientes)
     - [GET - /clients/:id](#13-listar-clientes-por-id)
-    - [PATCH - /clients/:id](#14-atualizar-dados-clientes)
+    - [PATCH - /clients/:id](#01-atualizar-dados-clientes)
     - [DELETE - /clients/:id](#15-desativar-clientes)
 - [Quartos](#2-bedrooms)
     - [POST - /bedrooms](#21-criação-de-quartos)
@@ -298,7 +298,7 @@ Vazio
 
 ---
 
-### 1.4. **Atualizar clientes por ID**
+### 0.1. **Atualizar clientes por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
