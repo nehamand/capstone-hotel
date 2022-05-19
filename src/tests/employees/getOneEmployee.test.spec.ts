@@ -51,7 +51,7 @@ describe("GET /employees/:id", () => {
     )
   })
 
-  test("Shouldnt find an employee", async () => {
+  test("Shouldn't find an employee with wrong id", async () => {
     const response = await request(app)
       .get(`/employees/f7b183ad-1c85-406c-b2d3-53a7363ea57q`)
       .set("Authorization", `Bearer ${token}`)
