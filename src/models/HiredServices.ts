@@ -25,7 +25,7 @@ class HiredServices {
 
   // relacionamento N:N clientes e serviços -- cliente como donos
   @ManyToOne(() => Client, (clients) => clients.hiredServices)
-  clients: Client;
+  client: Client;
 
   // relacionamento N:N clientes e serviços -- cliente como donos
   @ManyToOne(() => Service, (service) => service.hiredServices)

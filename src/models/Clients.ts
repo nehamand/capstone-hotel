@@ -1,3 +1,4 @@
+import { Expose } from "class-transformer";
 import {
   Column,
   CreateDateColumn,
@@ -25,18 +26,18 @@ class Client {
   @Column()
   birthDate: Date;
 
-  @Column({ unique: true, length: 11 })
+  @Column({ unique: true, length: 11, nullable: true })
   cellphone: string;
 
   // relacionamento 1:N clientes e serviços -- cliente como donos
-  @OneToMany(() => HiredServices, (hiredServices) => hiredServices.clients, {
+  @OneToMany(() => HiredServices, (hiredServices) => hiredServices.client, {
     eager: true,
   })
   hiredServices: HiredServices[];
 
   // relacionamento N:1 - quartos e clientes
-  @ManyToOne((type) => Bedroom, (bedroom) => bedroom.clients)
-  bedroom: Client;
+  @ManyToOne((type) => Bedroom, (bedroom) => bedroom.clients, {nullable: true})
+  bedroom: Bedroom;
 
   @CreateDateColumn()
   created_at: Date;

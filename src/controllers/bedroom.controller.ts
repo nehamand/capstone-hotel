@@ -28,7 +28,7 @@ class BedroomsController {
   static async show(req: Request, res: Response) {
     const {id} = req.params
 
-    const bedroom = await showBedroomService(id)
+    const bedroom = await showBedroomService(Number(id))
 
     return res.json(bedroom)
   }
@@ -37,7 +37,7 @@ class BedroomsController {
     const {id} = req.params
     const {capacity, availability} = req.body
 
-    const updateBedroom = await updateBedroomService(id, {
+    const updateBedroom = await updateBedroomService(Number(id), {
       capacity,
       availability,
     })
@@ -48,7 +48,7 @@ class BedroomsController {
   static async delete(req: Request, res: Response) {
     const {id} = req.params
 
-    const bedroomDisabled = await disableBedroomService(id)
+    const bedroomDisabled = await disableBedroomService(Number(id))
 
     return res.json(bedroomDisabled)
   }

@@ -4,7 +4,7 @@ import HiredServices from "../../models/HiredServices";
 
 interface UpdateProps {
   clientdId?: string
-  servicesId?: string;
+  servicesId?: number;
   start_date?: Date;
   end_date?: Date;
   cellphone?: string;
@@ -13,7 +13,7 @@ interface UpdateProps {
   status?: boolean;
 }
 
-const updateHiredService = async (id: string, data: UpdateProps) => {
+const updateHiredService = async (id: number, data: UpdateProps) => {
   const hiredServiceRepository = AppDataSource.getRepository(HiredServices);
 
   const hiredService = await hiredServiceRepository.findOne({ where: { id } });

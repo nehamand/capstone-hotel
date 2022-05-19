@@ -5,36 +5,53 @@ import HiredServices from "../../models/HiredServices";
 import Service from "../../models/Services";
 
 interface createProps {
-  clientsId: string;
-  servicesId: string;
-  start_date?: Date;
-  end_date: Date;
-  paid?: boolean;
+  clientId?: string;
+  serviceId?: number;
+  start_date: string;
+  end_date: string;
   status?: boolean;
 }
 
 const createHiredService = async (data: createProps) => {
   const hiredServiceRepository = AppDataSource.getRepository(HiredServices);
-  const clientRepository = AppDataSource.getRepository(Client)
-  const serviceRepository = AppDataSource.getRepository(Service)
 
-  const client = await clientRepository.findOne({ where: { id: data.clientsId } });
+  const serviceRepository = AppDataSource.getRepository(Service);
+  const service = await serviceRepository.findOne({
+    where: { id: data.serviceId },
+  });
 
-  if (!client) {
-    throw new AppError("Client not found", 400);
-  }
-
-  const service = await serviceRepository.findOne({where: { id: data.servicesId }})
+  const clientRepository = AppDataSource.getRepository(Client);
+  const client = await clientRepository.findOne({
+    where: { id: data.clientId },
+  });
 
   if (!service) {
-    throw new AppError("Service not found", 400)
+    throw new AppError("Service not found", 404);
   }
 
-  const hiredService = hiredServiceRepository.create({ 
-   ...data
-   
-  })
-  
+  if (!client) {
+    throw new AppError("Client not found", 404);
+  }
+
+  console.log(new Date(data.start_date))
+
+  let startDate = new Date(data.start_date).getTime() / 1000;
+  let endDate = new Date(data.end_date).getTime() / 1000;
+
+  let timeDifference = endDate - startDate;
+
+  let dayDifference = timeDifference / 86400;
+
+  let total_price = service.price * dayDifference;
+  total_price = Number(total_price.toFixed(2))
+
+  const hiredService = hiredServiceRepository.create({
+    ...data,
+    service,
+    client,
+    total_price,
+  });
+
   await hiredServiceRepository.save(hiredService);
   return { message: "Hired service created", hiredService };
 };

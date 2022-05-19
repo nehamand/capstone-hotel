@@ -9,7 +9,7 @@ interface UpdateProps {
   status: boolean
 }
 
-const updateService = async (id: string, data: UpdateProps) => {
+const updateService = async (id: number, data: UpdateProps) => {
   const serviceRepository = AppDataSource.getRepository(Service)
 
   const service = await serviceRepository.findOne({where: {id}})

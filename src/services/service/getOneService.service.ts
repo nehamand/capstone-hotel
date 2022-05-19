@@ -1,17 +1,17 @@
 import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
-import HiredServices from "../../models/HiredServices";
+import Service from "../../models/Services";
 
-const getOneHiredService = async (id: string) => {
-  const hiredServiceRepository = AppDataSource.getRepository(HiredServices);
+const getOneService = async (id: number) => {
+  const serviceRepository = AppDataSource.getRepository(Service);
 
-  const hiredService = await hiredServiceRepository.findOne({ where: { id } });
+  const service = await serviceRepository.findOne({ where: { id } });
 
-  if (!hiredService) {
-    throw new AppError("Hired Service not found", 400);
+  if (!service) {
+    throw new AppError("Service not found", 400);
   }
 
-  return hiredService
+  return service;
 };
 
-export default getOneHiredService;
+export default getOneService;

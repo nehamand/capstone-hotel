@@ -1,18 +1,18 @@
 import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
 import Client from "../../models/Clients";
+import HiredServices from "../../models/HiredServices";
 
-const listOneClient = async (id:string) =>{
-    
-    const clientRepository = AppDataSource.getRepository(Client);
+const listOneClient = async (id: string) => {
+  const clientRepository = AppDataSource.getRepository(Client);
 
-    const client = await clientRepository.findOne({where:{id}});
+  const client = await clientRepository.findOne({ where: { id } });
 
-    if (!client) {
-        throw new AppError("client not found", 400);
-      }
+  if (!client) {
+    throw new AppError("client not found", 400);
+  }
 
-    return client;
-} 
+  return client;
+};
 
 export default listOneClient;

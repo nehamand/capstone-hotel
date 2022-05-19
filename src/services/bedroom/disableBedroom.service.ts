@@ -2,7 +2,7 @@ import AppError from "../../errors/AppError"
 import Bedroom from "../../models/Bedrooms"
 import {AppDataSource} from "../../data-source"
 
-const disableBedroomService = async (id: string) => {
+const disableBedroomService = async (id: number) => {
   const bedroomRepository = AppDataSource.getRepository(Bedroom)
 
   const bedroom = await bedroomRepository.findOne({where: {id}})

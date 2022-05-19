@@ -1,12 +1,33 @@
-import Bedroom from '../../models/Bedrooms';
-import { AppDataSource } from './../../data-source';
+import Bedroom from "../../models/Bedrooms";
+import { AppDataSource } from "./../../data-source";
 
 const listBedroomsService = async () => {
-    const bedroomRepository = AppDataSource.getRepository(Bedroom)
+  const bedroomRepository = AppDataSource.getRepository(Bedroom);
 
-    const bedrooms = bedroomRepository.find()
+  const bedrooms = await bedroomRepository.find();
 
-    return bedrooms
-}
+  const filteredBedroooms = bedrooms.map((bedroom) => {
+    return {
+      id: bedroom.id,
+      number: bedroom.number,
+      floor: bedroom.floor,
+      capacity: bedroom.capacity,
+      created_at: bedroom.created_at,
+      updated_at: bedroom.updated_at,
+      status: bedroom.status,
+      clients: bedroom.clients.map((client) => {
+        return {
+          id: client.id,
+          name: client.name,
+          cpf: client.cpf,
+          cellphone: client.cellphone,
+          status: client.status,
+        };
+      }),
+    };
+  });
 
-export default listBedroomsService
+  return filteredBedroooms;
+};
+
+export default listBedroomsService;
