@@ -4,6 +4,7 @@ import isAdminMiddleware from "../middlewares/isAdmin.middleware"
 import {expressYupMiddleware} from "express-yup-middleware"
 
 import createServiceSchema from "../validations/services/createService.validation"
+import updateServiceSchema from "../validations/services/updateService.validation"
 
 const serviceRouter = Router()
 
@@ -15,7 +16,12 @@ serviceRouter.post(
 )
 serviceRouter.get("", ServiceController.index)
 serviceRouter.get("/:id", ServiceController.show)
-serviceRouter.patch("/:id", isAdminMiddleware, ServiceController.update)
+serviceRouter.patch(
+  "/:id",
+  expressYupMiddleware({schemaValidator: updateServiceSchema}),
+  isAdminMiddleware,
+  ServiceController.update
+)
 serviceRouter.delete("/:id", isAdminMiddleware, ServiceController.delete)
 
 export default serviceRouter

@@ -2,6 +2,7 @@ import {Router} from "express"
 import ClientsController from "../controllers/clients.controllers"
 import {expressYupMiddleware} from "express-yup-middleware"
 import createClientSchema from "../validations/clients/createClient.validation"
+import updateClientSchema from "../validations/clients/updateClient.validation"
 
 const clientRouter = Router()
 
@@ -14,7 +15,11 @@ clientRouter.post(
 )
 clientRouter.get("/", ClientsController.show)
 clientRouter.get("/:id", ClientsController.index)
-clientRouter.patch("/:id", ClientsController.update)
+clientRouter.patch(
+  "/:id",
+  expressYupMiddleware({schemaValidator: updateClientSchema}),
+  ClientsController.update
+)
 clientRouter.delete("/:id", ClientsController.delete)
 
 export default clientRouter
