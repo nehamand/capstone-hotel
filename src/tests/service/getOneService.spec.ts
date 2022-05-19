@@ -6,7 +6,7 @@ import request from "supertest";
 import app from "../../app";
 import createService from "../../services/service/createService.service";
 
-describe("POST - /service", () => {
+describe("GET BY ID - /services", () => {
   let connection: DataSource;
   let token = "";
 
@@ -21,7 +21,7 @@ describe("POST - /service", () => {
       cpf: "12345678910",
       password: "123456",
       status: true,
-      admin: false,
+      admin: true,
     };
 
     await createEmployeeService(employee);
@@ -63,5 +63,80 @@ describe("POST - /service", () => {
         description: service.description,
       })
     );
+  });
+  test("TESTE PARA DAR ERRO", async () => {
+
+
+    const employee = {
+      name: "Alexandre",
+      cpf: "12345678911",
+      password: "123456",
+      status: true,
+      admin: false,
+    };
+
+    await createEmployeeService(employee);
+
+    const login = {
+      cpf: employee.cpf,
+      password: employee.password,
+    };
+
+    const res = await sessionService(login);
+
+    const service = {
+      name: "Hospedagem Simples",
+      price: 200,
+      description: "Hospedagem simple com café da manha",
+    };
+
+    const serviceCreated = await createService(service);
+
+    const response = await request(app)
+      .get(`/services/${serviceCreated.id}`)
+      .set({
+        Authorization: `Bearer ${res.token}`,
+      });
+
+      expect(response.status).toBe(401)
+      expect(response.body).toHaveProperty("message")
+  });
+
+  test("Shouldn't be possible to return one service without admin permission", async () => {
+
+
+    const employee = {
+      name: "Alexandre",
+      cpf: "12345678918",
+      password: "123456",
+      status: true,
+      admin: true,
+    };
+
+    await createEmployeeService(employee);
+
+    const login = {
+      cpf: employee.cpf,
+      password: employee.password,
+    };
+
+    const res = await sessionService(login);
+
+    const service = {
+      name: "Hospedagem Simples",
+      price: 200,
+      description: "Hospedagem simple com café da manha",
+    };
+
+    await createService(service);
+
+    const response = await request(app)
+      .get(`/services/8`)
+      .set({
+        Authorization: `Bearer ${res.token}`,
+      });
+
+      expect(response.status).toBe(400)
+      expect(response.body).toHaveProperty("message")
   });
 });
