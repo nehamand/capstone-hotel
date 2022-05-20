@@ -20,20 +20,22 @@ const createBedroomService = async ({
 
   const bedrooms = await bedroomRepository.find();
 
-  const bedroomAlreadyExists = bedrooms.find(bedroom => bedroom.number === number)
+  const bedroomAlreadyExists = bedrooms.find(
+    (bedroom) => bedroom.number == number
+  );
 
-  if(bedroomAlreadyExists){
-      throw new AppError("This bedroom already exists", 409)
+  if (bedroomAlreadyExists) {
+    throw new AppError("This bedroom already exists", 409);
   }
 
-  const bedroom = new Bedroom()
-  bedroom.number = number
-  bedroom.floor = floor
-  bedroom.capacity = capacity
-  bedroom.availability = availability
+  const bedroom = new Bedroom();
+  bedroom.number = number;
+  bedroom.floor = floor;
+  bedroom.capacity = capacity;
+  bedroom.availability = availability;
 
-  bedroomRepository.create(bedroom)
-  const bedroomCreated = await bedroomRepository.save(bedroom)
+  bedroomRepository.create(bedroom);
+  const bedroomCreated = await bedroomRepository.save(bedroom);
 
   return bedroomCreated;
 };
