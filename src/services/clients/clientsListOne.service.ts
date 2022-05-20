@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
 import Client from "../../models/Clients";
-import HiredServices from "../../models/HiredServices";
+import formatGetClientData from "../../utils/formatGetClientData";
 
 const listOneClient = async (id: string) => {
   const clientRepository = AppDataSource.getRepository(Client);
@@ -12,7 +12,9 @@ const listOneClient = async (id: string) => {
     throw new AppError("client not found", 400);
   }
 
-  return client;
+  const formatedClient = formatGetClientData({client})
+
+  return formatedClient;
 };
 
 export default listOneClient;

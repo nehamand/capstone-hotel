@@ -5,7 +5,7 @@ import { sessionService } from "../../services/sessions/sessions.service";
 import request from "supertest";
 import app from "../../app";
 
-describe("POST - /service", () => {
+describe("Testing success cases in the route /services", () => {
   let connection: DataSource;
   let token = "";
 
@@ -20,7 +20,7 @@ describe("POST - /service", () => {
       cpf: "12345678910",
       password: "123456",
       status: true,
-      admin: false,
+      admin: true,
     };
 
     await createEmployeeService(employee);
@@ -60,5 +60,40 @@ describe("POST - /service", () => {
         price: service.price,
         description: service.description
     }))
+  });
+  test("Should not be possible to create a new service without admin permission", async () => {
+
+    const employee = {
+      name: "Alexandre",
+      cpf: "12345678911",
+      password: "123456",
+      status: true,
+      admin: false,
+    };
+
+    await createEmployeeService(employee);
+
+    const login = {
+      cpf: employee.cpf,
+      password: employee.password,
+    };
+
+    const res = await sessionService(login);
+
+    const service = {
+      name: "Hospedagem Simples",
+      price: 200,
+      description: "Hospedagem simple com café da manha",
+    };
+
+    const response = await request(app)
+      .post("/services")
+      .set({
+        Authorization: `Bearer ${res.token}`,
+      })
+      .send(service);
+
+      expect(response.status).toBe(401);
+      expect(response.body.message).toBeDefined()
   });
 });

@@ -1,12 +1,20 @@
 import HiredServicesControllers from "../controllers/hiredServices.controllers";
 import { Router } from "express";
 
-const hiredService = Router()
+import { expressYupMiddleware } from "express-yup-middleware";
 
-hiredService.post('/', HiredServicesControllers.store)
-hiredService.get('/', HiredServicesControllers.index)
-hiredService.get('/:id', HiredServicesControllers.show)
-//hiredService.patch('/:id', HiredServicesControllers.update)
-hiredService.delete('/:id', HiredServicesControllers.delete)
+import createHiredServiceSchema from "../validations/hiredServices/createHiredService.validation";
+
+const hiredService = Router();
+
+hiredService.post(
+  "/",
+  expressYupMiddleware({ schemaValidator: createHiredServiceSchema }),
+  HiredServicesControllers.store
+);
+hiredService.get("/", HiredServicesControllers.index);
+hiredService.get("/:id", HiredServicesControllers.show);
+hiredService.patch("/pay/:id", HiredServicesControllers.update);
+hiredService.delete("/:id", HiredServicesControllers.delete);
 
 export default hiredService;

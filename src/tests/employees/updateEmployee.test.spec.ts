@@ -48,4 +48,14 @@ describe("PATCH /employees/:id", () => {
     expect(response.body).toHaveProperty("message")
     expect(response.body).toHaveProperty("employeeUpdated")
   })
+
+  test("Shouldn't update an unexisting employee", async () => {
+    const response = await request(app)
+      .get(`/employees/f7b183ad-1c85-406c-b2d3-53a7363ea57q`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ name: "New name" })
+
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty("message")
+  })
 })

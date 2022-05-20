@@ -6,7 +6,7 @@ import request from "supertest";
 import app from "../../app";
 import createService from "../../services/service/createService.service";
 
-describe("POST - /service", () => {
+describe("UPDATE - /services", () => {
   let connection: DataSource;
   let token = "";
 
@@ -21,7 +21,7 @@ describe("POST - /service", () => {
       cpf: "12345678910",
       password: "123456",
       status: true,
-      admin: false,
+      admin: true,
     };
 
     await createEmployeeService(employee);
@@ -59,4 +59,40 @@ describe("POST - /service", () => {
     expect(response.body.message).toBeDefined()
     expect(response.body.updatedService.updated_at).toBeDefined()
   });
+
+  test("Shouldn't be possible to update one service without admin permission", async () => {
+    const employee = {
+      name: "Alexandre",
+      cpf: "12345678916",
+      password: "123456",
+      status: true,
+      admin: false,
+    };
+
+    await createEmployeeService(employee);
+
+    const login = {
+      cpf: employee.cpf,
+      password: employee.password,
+    };
+
+    const res = await sessionService(login);
+
+    const service = {
+      name: "Hospedagem Simples",
+      price: 200,
+      description: "Hospedagem simple com café da manha",
+    };
+
+    const serviceCreated = await createService(service);
+
+    const response = await request(app)
+      .patch(`/services/${serviceCreated.id}`)
+      .set({
+        Authorization: `Bearer ${res.token}`,
+      }).send({name: "Hospedagem Premium"})
+
+      expect(response.status).toBe(401)
+      expect(response.body).toHaveProperty("message")
+  })
 });

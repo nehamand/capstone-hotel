@@ -2,6 +2,7 @@ import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
 import Bedroom from "../../models/Bedrooms";
 import Client from "../../models/Clients";
+import formatClientData from "../../utils/formatCreateClientData";
 
 interface ClientProps {
   name: string;
@@ -25,6 +26,12 @@ const createClient = async (data: ClientProps) => {
     throw new AppError("Bedroom not found", 404)
   }
 
+  if (bedroom.clients.length >= bedroom.capacity) {
+    throw new AppError("This bedroom is already full", 400);
+  }
+
+  bedroom.availability = false
+
   const newClient = new Client();
   newClient.name = data.name;
   newClient.birthDate = data.birthDate;
@@ -32,11 +39,15 @@ const createClient = async (data: ClientProps) => {
   newClient.cellphone = data.cellphone;
   newClient.bedroom = bedroom
 
+  await bedroomRepository.save(bedroom)
+
   clientRepository.create(newClient);
 
-  await clientRepository.save(newClient);
+  const client = await clientRepository.save(newClient);
 
-  return newClient;
+  const fomatedClient = formatClientData({client})
+
+  return fomatedClient;
 };
 
 export default createClient;

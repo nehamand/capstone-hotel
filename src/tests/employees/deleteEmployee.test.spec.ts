@@ -46,4 +46,13 @@ describe("DELETE /employees/:id", () => {
     expect(response.status).toBe(201)
     expect(response.body).toHaveProperty("message")
   })
+
+  test("Shouldn't delete an unexisting employee", async () => {
+    const response = await request(app)
+      .delete(`/employees/f7b183ad-1c85-406c-b2d3-53a7363ea57q`)
+      .set("Authorization", `Bearer ${token}`)
+
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty("message")
+  })
 })
