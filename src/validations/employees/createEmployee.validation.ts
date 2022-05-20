@@ -7,8 +7,8 @@ const createEmployeeSchema = {
         name: yup.string().required("Name is Required"),
         cpf: yup.string().required("CPF is required!"),
         password: yup.string().required("Password is required!"),
-        admin: yup.boolean().required("Admin field is required!"),
-        status: yup.boolean().required("Status field is required!"),
+        admin: yup.boolean(),
+        status: yup.boolean(),
       }),
       validateOptions: {
         abortEarly: false,

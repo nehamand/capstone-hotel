@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import changeHiredStatusService from "../services/hiredServices/changeStatusHiredService.service";
 import createHiredService from "../services/hiredServices/createHiredService.service";
 import getAllHiredServices from "../services/hiredServices/getAllHIredServices.service";
-import getOneHiredService from "../services/service/getOneService.service";
+import getOneHiredService from "../services/hiredServices/getOneHiredService.service";
 import updateHiredService from "../services/hiredServices/updateHiredService.service";
 
 export default class HiredServicesControllers {
@@ -25,8 +25,7 @@ export default class HiredServicesControllers {
   };
   static update = async (req: Request, res: Response) => {
     const id = req.params.id;
-    const data = req.body;
-    const hiredService = await updateHiredService(Number(id), data);
+    const hiredService = await updateHiredService(Number(id));
     return res.status(201).json(hiredService);
   };
   static delete = async (req: Request, res: Response) => {

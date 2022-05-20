@@ -7,6 +7,7 @@ const updateServiceSchema = {
         name: yup.string(),
         description: yup.string(),
         price: yup.number(),
+        status: yup.boolean(),
       }),
       validateOptions: {
         abortEarly: false,

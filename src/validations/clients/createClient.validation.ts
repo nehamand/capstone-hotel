@@ -7,7 +7,7 @@ const createClientSchema = {
         name: yup.string().required("Name is Required"),
         birthDate: yup.date().required("Birth date is required"),
         cpf: yup.string().required("CPF is required!"),
-        cellphone: yup.string().required("Cellphone is required!"),
+        cellphone: yup.string(),
         bedroomId: yup.string().required("Bedroom Id is required!"),
       }),
       validateOptions: {

@@ -8,7 +8,6 @@ const updateClientSchema = {
         birthDate: yup.date(),
         cpf: yup.string(),
         cellphone: yup.string(),
-        bedroomId: yup.string(),
       }),
       validateOptions: {
         abortEarly: false,

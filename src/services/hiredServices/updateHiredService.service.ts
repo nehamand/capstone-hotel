@@ -1,19 +1,9 @@
 import { AppDataSource } from "../../data-source";
 import AppError from "../../errors/AppError";
+import Bedroom from "../../models/Bedrooms";
 import HiredServices from "../../models/HiredServices";
 
-interface UpdateProps {
-  clientdId?: string
-  servicesId?: number;
-  start_date?: Date;
-  end_date?: Date;
-  cellphone?: string;
-  paid?: boolean;
-  total_price?: number;
-  status?: boolean;
-}
-
-const updateHiredService = async (id: number, data: UpdateProps) => {
+const updateHiredService = async (id: number) => {
   const hiredServiceRepository = AppDataSource.getRepository(HiredServices);
 
   const hiredService = await hiredServiceRepository.findOne({ where: { id } });
@@ -22,12 +12,30 @@ const updateHiredService = async (id: number, data: UpdateProps) => {
     throw new AppError("Hired Service not found", 400);
   }
 
-  const updatedHiredService = await hiredServiceRepository.save({
-    ...data,
-    id
+  if (hiredService.paid) {
+    throw new AppError("This Hired Service has already been paid", 400);
+  }
+
+  const bedroomRepostiroy = AppDataSource.getRepository(Bedroom);
+  const bedroom = await bedroomRepostiroy.findOne({
+    where: { number: hiredService.bedroom_number },
   });
 
-  return { message: "Hired service updated", updatedHiredService };
+  if(!bedroom){
+    throw new AppError("Bedroom not found", 404)
+  }
+
+  bedroom.availability = true
+  bedroom.clients = []
+
+  await bedroomRepostiroy.save(bedroom)
+
+  const updatedHiredService = await hiredServiceRepository.save({
+    paid: true,
+    id,
+  });
+
+  return { message: "Paid Hired service", updatedHiredService };
 };
 
 export default updateHiredService;

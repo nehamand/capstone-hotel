@@ -7,7 +7,6 @@ interface UpdateProps {
   birthDate: Date;
   cpf: string;
   cellphone?: string;
-  bedroomId: number;
 }
 
 const updateClient = async (id: string, data: UpdateProps) => {
