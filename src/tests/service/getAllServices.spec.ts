@@ -97,8 +97,6 @@ describe("GET - /services", () => {
 
     const response = await request(app).get("/services")
 
-    console.log(response.body)
-
       expect(response.status).toBe(401)
       expect(response.body).toHaveProperty("message")
   });
