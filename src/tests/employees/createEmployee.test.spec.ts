@@ -43,7 +43,9 @@ describe("POST /employees", () => {
       .send({ cpf: "1234567891", password: "12345" })
 
     expect(response.status).toBe(400)
-    expect(response.body).toHaveProperty("message")
+    expect(response.body).toEqual(
+      expect.arrayContaining(expect.objectContaining({ errors: {} }))
+    )
   })
 
   test("Shouldn't create a new employee without password", async () => {
@@ -52,7 +54,9 @@ describe("POST /employees", () => {
       .send({ name: "John Doe", cpf: "1234567891" })
 
     expect(response.status).toBe(400)
-    expect(response.body).toHaveProperty("message")
+    expect(response.body).toEqual(
+      expect.arrayContaining([expect.objectContaining({ errors: {} })])
+    )
   })
 
   test("Shouldn't create a new employee without cpf", async () => {
@@ -61,6 +65,8 @@ describe("POST /employees", () => {
       .send({ name: "John Doe", password: "12345" })
 
     expect(response.status).toBe(400)
-    expect(response.body).toHaveProperty("message")
+    expect(response.body).toEqual(
+      expect.arrayContaining([expect.objectContaining({ errors: {} })])
+    )
   })
 })
