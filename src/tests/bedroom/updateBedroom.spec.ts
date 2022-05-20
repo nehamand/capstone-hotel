@@ -58,7 +58,7 @@ describe("PATCH /bedrooms/:id", () => {
       .send({ capacity: bedroom.capacity, availability: bedroom.availability });
 
     expect(response.status).toEqual(200);
-    expect(response.body).toEqual(
+    expect(response.body.updatedBedroom).toEqual(
       expect.objectContaining({
         availability: bedroom.availability,
         capacity: bedroom.capacity,
