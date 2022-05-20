@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const ensureAuth_middleware_1 = __importDefault(require("../middlewares/ensureAuth.middleware"));
+const service_routes_1 = __importDefault(require("./service.routes"));
+const employee_routes_1 = __importDefault(require("./employee.routes"));
+const session_routes_1 = __importDefault(require("./session.routes"));
+const bedroom_routes_1 = __importDefault(require("./bedroom.routes"));
+const hiredService_routes_1 = __importDefault(require("./hiredService.routes"));
+const client_routes_1 = __importDefault(require("./client.routes"));
+const routes = (0, express_1.default)();
+routes.use("/services", ensureAuth_middleware_1.default, service_routes_1.default);
+routes.use("/employees", employee_routes_1.default);
+routes.use("/sessions", session_routes_1.default);
+routes.use("/bedrooms", ensureAuth_middleware_1.default, bedroom_routes_1.default);
+routes.use("/hiredservices", ensureAuth_middleware_1.default, hiredService_routes_1.default);
+routes.use("/clients", ensureAuth_middleware_1.default, client_routes_1.default);
+exports.default = routes;
