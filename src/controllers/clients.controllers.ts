@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express"
 
 import createClient from "../services/clients/clientsCreate.service";
 import deleteClient from "../services/clients/clientsDelete.service";

@@ -50,4 +50,4 @@ const createClient = async (data: ClientProps) => {
   return fomatedClient;
 };
 
-export default createClient;
+export default createClient
