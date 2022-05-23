@@ -15,7 +15,7 @@ const updateService = async (id: number, data: UpdateProps) => {
   const service = await serviceRepository.findOne({where: {id}})
 
   if (!service) {
-    throw new AppError("Service not found", 400)
+    throw new AppError("Service not found", 404)
   }
 
   const updatedService = await serviceRepository.save({

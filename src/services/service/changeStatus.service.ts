@@ -8,7 +8,7 @@ const changeStatusService = async (id: number) => {
   const service = await serviceRepository.findOne({where: {id}})
 
   if (!service) {
-    throw new AppError("Service not found", 400)
+    throw new AppError("Service not found", 404)
   }
 
   const status = false
