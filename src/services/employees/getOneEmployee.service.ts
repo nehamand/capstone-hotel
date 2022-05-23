@@ -1,24 +1,17 @@
-import { AppDataSource } from "../../data-source"
+import {AppDataSource} from "../../data-source"
 import AppError from "../../errors/AppError"
 import Employee from "../../models/Employees"
+import formatEmployeeToShow from "../../utils/formatEmployeeToShow"
 
 const getOneEmployeeService = async (id: string) => {
   const employeeRepository = AppDataSource.getRepository(Employee)
-  const employee = await employeeRepository.findOne({ where: { id } })
+  const employee = await employeeRepository.findOne({where: {id}})
 
   if (!employee) {
-    throw new AppError("Employee not found.", 400)
+    throw new AppError("Employee not found.", 404)
   }
 
-  const employeeToShow = {
-    id: employee.id,
-    name: employee.name,
-    cpf: employee.cpf,
-    admin: employee.admin,
-    status: employee.admin,
-    created_at: employee.created_at,
-    updated_at: employee.updated_at,
-  }
+  const employeeToShow = formatEmployeeToShow(employee)
 
   return employeeToShow
 }
