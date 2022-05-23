@@ -26,7 +26,7 @@ export default class HiredServicesControllers {
   static update = async (req: Request, res: Response) => {
     const id = req.params.id;
     const hiredService = await updateHiredService(Number(id));
-    return res.status(201).json(hiredService);
+    return res.status(200).json(hiredService);
   };
   static delete = async (req: Request, res: Response) => {
     const id = req.params.id;

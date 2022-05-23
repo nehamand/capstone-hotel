@@ -1,20 +1,20 @@
-import { AppDataSource } from "../../data-source";
-import AppError from "../../errors/AppError";
-import Client from "../../models/Clients";
-import formatGetClientData from "../../utils/formatGetClientData";
+import {AppDataSource} from "../../data-source"
+import AppError from "../../errors/AppError"
+import Client from "../../models/Clients"
+import formatGetClientData from "../../utils/formatGetClientData"
 
 const listOneClient = async (id: string) => {
-  const clientRepository = AppDataSource.getRepository(Client);
+  const clientRepository = AppDataSource.getRepository(Client)
 
-  const client = await clientRepository.findOne({ where: { id } });
+  const client = await clientRepository.findOne({where: {id}})
 
   if (!client) {
-    throw new AppError("client not found", 400);
+    throw new AppError("client not found", 404)
   }
 
   const formatedClient = formatGetClientData({client})
 
-  return formatedClient;
-};
+  return formatedClient
+}
 
-export default listOneClient;
+export default listOneClient

@@ -5,11 +5,18 @@ import ensureAuth from "../middlewares/ensureAuth.middleware"
 import {expressYupMiddleware} from "express-yup-middleware"
 import createEmployeeSchema from "../validations/employees/createEmployee.validation"
 import updateEmployeeSchema from "../validations/employees/updateEmployee.validation"
+import isAdminMiddleware from "../middlewares/isAdmin.middleware"
+import idSchema from "../validations/idValidation"
 
 const employeeRouter = Router()
 
 employeeRouter.get("/", ensureAuth, employeeControllers.index)
-employeeRouter.get("/:id", ensureAuth, employeeControllers.show)
+employeeRouter.get(
+  "/:id",
+  expressYupMiddleware({schemaValidator: idSchema}),
+  ensureAuth,
+  employeeControllers.show
+)
 employeeRouter.post(
   "/",
   expressYupMiddleware({schemaValidator: createEmployeeSchema}),
@@ -18,9 +25,17 @@ employeeRouter.post(
 employeeRouter.patch(
   "/:id",
   expressYupMiddleware({schemaValidator: updateEmployeeSchema}),
+  expressYupMiddleware({schemaValidator: idSchema}),
+  isAdminMiddleware,
   ensureAuth,
   employeeControllers.update
 )
-employeeRouter.delete("/:id", ensureAuth, employeeControllers.delete)
+employeeRouter.delete(
+  "/:id",
+  expressYupMiddleware({schemaValidator: idSchema}),
+  ensureAuth,
+  isAdminMiddleware,
+  employeeControllers.delete
+)
 
 export default employeeRouter

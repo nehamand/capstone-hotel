@@ -1,52 +1,48 @@
-import AppError from "../../errors/AppError";
-import Bedroom from "../../models/Bedrooms";
-import Client from "../../models/Clients";
-import formatCreateClientData from "../../utils/formatCreateClientData";
-import { AppDataSource } from "./../../data-source";
+import AppError from "../../errors/AppError"
+import Bedroom from "../../models/Bedrooms"
+import Client from "../../models/Clients"
+import formatCreateClientData from "../../utils/formatCreateClientData"
+import {AppDataSource} from "./../../data-source"
 interface Props {
-  id: string;
-  bedroomId: number;
+  id: string
+  bedroomId: number
 }
 
-const clientsJoinBedrrom = async ({ id, bedroomId }: Props) => {
-  if (!bedroomId) {
-    throw new AppError("Bedroom is required", 400);
-  }
+const clientsJoinBedrrom = async ({id, bedroomId}: Props) => {
+  const clientsRepository = AppDataSource.getRepository(Client)
+  const bedroomRepository = AppDataSource.getRepository(Bedroom)
 
-  const clientsRepository = AppDataSource.getRepository(Client);
-  const bedroomRepository = AppDataSource.getRepository(Bedroom);
-
-  const client = await clientsRepository.findOne({ where: { id } });
+  const client = await clientsRepository.findOne({where: {id}})
 
   if (!client) {
-    throw new AppError("Client not found", 404);
+    throw new AppError("Client not found", 404)
   }
 
-  const bedroom = await bedroomRepository.findOne({ where: { id: bedroomId } });
+  const bedroom = await bedroomRepository.findOne({where: {id: bedroomId}})
 
   if (!bedroom) {
-    throw new AppError("Bedroom not found", 404);
+    throw new AppError("Bedroom not found", 404)
   }
 
   if (bedroom.clients.length >= bedroom.capacity) {
-    throw new AppError("This bedroom is already full", 400);
+    throw new AppError("This bedroom is already full", 400)
   }
 
-  if(bedroom.clients.find(client => client.id === id)){
-      throw new AppError("This client is already on this bedroom", 400)
+  if (bedroom.clients.find((client) => client.id === id)) {
+    throw new AppError("This client is already on this bedroom", 400)
   }
 
-  bedroom.availability = false;
+  bedroom.availability = false
 
-  client.bedroom = bedroom;
+  client.bedroom = bedroom
 
-  await bedroomRepository.save(bedroom);
+  await bedroomRepository.save(bedroom)
 
-  const clientSaved = await clientsRepository.save(client);
+  const clientSaved = await clientsRepository.save(client)
 
   const formatedClient = formatCreateClientData({client: clientSaved})
 
-  return formatedClient;
-};
+  return formatedClient
+}
 
-export default clientsJoinBedrrom;
+export default clientsJoinBedrrom

@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../data-source"
+import {AppDataSource} from "../../data-source"
 import AppError from "../../errors/AppError"
 import Employee from "../../models/Employees"
 
@@ -13,10 +13,10 @@ interface UpdateProps {
 
 const updateEmployeeService = async (id: string, data: UpdateProps) => {
   const employeeRepository = AppDataSource.getRepository(Employee)
-  const employee = await employeeRepository.findOne({ where: { id } })
+  const employee = await employeeRepository.findOne({where: {id}})
 
   if (!employee) {
-    throw new AppError("Employee not found.", 400)
+    throw new AppError("Employee not found.", 404)
   }
 
   if (data.password) {

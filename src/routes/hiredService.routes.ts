@@ -1,20 +1,35 @@
-import HiredServicesControllers from "../controllers/hiredServices.controllers";
-import { Router } from "express";
+import HiredServicesControllers from "../controllers/hiredServices.controllers"
+import {Router} from "express"
+import createHiredServiceSchema from "../validations/hiredServices/createHiredService.validation"
+import {expressYupMiddleware} from "express-yup-middleware"
+import isAdminMiddleware from "../middlewares/isAdmin.middleware"
+import numberIdSchema from "../validations/numberIdValidation"
 
-import { expressYupMiddleware } from "express-yup-middleware";
-
-import createHiredServiceSchema from "../validations/hiredServices/createHiredService.validation";
-
-const hiredService = Router();
+const hiredService = Router()
 
 hiredService.post(
   "/",
-  expressYupMiddleware({ schemaValidator: createHiredServiceSchema }),
+  isAdminMiddleware,
+  expressYupMiddleware({schemaValidator: createHiredServiceSchema}),
   HiredServicesControllers.store
-);
-hiredService.get("/", HiredServicesControllers.index);
-hiredService.get("/:id", HiredServicesControllers.show);
-hiredService.patch("/pay/:id", HiredServicesControllers.update);
-hiredService.delete("/:id", HiredServicesControllers.delete);
+)
+hiredService.get("/", HiredServicesControllers.index)
+hiredService.get(
+  "/:id",
+  expressYupMiddleware({schemaValidator: numberIdSchema}),
+  HiredServicesControllers.show
+)
+hiredService.patch(
+  "/pay/:id",
+  expressYupMiddleware({schemaValidator: numberIdSchema}),
+  isAdminMiddleware,
+  HiredServicesControllers.update
+)
+hiredService.delete(
+  "/:id",
+  expressYupMiddleware({schemaValidator: numberIdSchema}),
+  isAdminMiddleware,
+  HiredServicesControllers.delete
+)
 
-export default hiredService;
+export default hiredService

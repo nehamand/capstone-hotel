@@ -7,8 +7,7 @@ const createBedroomSchema = {
         number: yup.number().required("Bedroom number is required!"),
         floor: yup.number().required("Bedroom floor is required!"),
         capacity: yup.number().required("Bedroom capacity is required!"),
-        availability: yup
-          .boolean()
+        availability: yup.boolean(),
       }),
       validateOptions: {
         abortEarly: false,
