@@ -3,6 +3,7 @@ import {sign} from "jsonwebtoken"
 import {AppDataSource} from "../../data-source"
 import AppError from "../../errors/AppError"
 import Employee from "../../models/Employees"
+import formatEmployeeToShow from "../../utils/formatEmployeeToShow"
 
 interface Request {
   cpf: string
@@ -17,7 +18,7 @@ interface Response {
 export const sessionService = async ({
   cpf,
   password,
-}: Request): Promise<Response> => {
+}: Request) => {
   const employeeRepository = AppDataSource.getRepository(Employee)
 
   const employee = await employeeRepository.findOne({
@@ -43,8 +44,10 @@ export const sessionService = async ({
     }
   )
 
+  const employeeToShow = formatEmployeeToShow(employee)
+
   return {
-    employee,
+    employee: employeeToShow,
     token,
   }
 }

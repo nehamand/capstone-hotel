@@ -18,6 +18,7 @@ clientRouter.get(
   expressYupMiddleware({schemaValidator: idSchema}),
   ClientsController.index
 )
+clientRouter.post("/cpf", ClientsController.searchByCPF)
 clientRouter.patch(
   "/:id",
   expressYupMiddleware({schemaValidator: idSchema}),
