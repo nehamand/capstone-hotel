@@ -5,6 +5,7 @@ import deleteClient from "../services/clients/clientsDelete.service";
 import clientsJoinBedrrom from "../services/clients/clientsJoinBedrrom.service";
 import listClient from "../services/clients/clientsList.service";
 import listOneClient from "../services/clients/clientsListOne.service";
+import clientsSearchCPF from "../services/clients/clientsSearchCPF.service";
 import updateClient from "../services/clients/clientsUpdate.service";
 
 export default class ClientsController {
@@ -53,5 +54,13 @@ export default class ClientsController {
     const clientJoined = await clientsJoinBedrrom({id, bedroomId})
 
     return res.json(clientJoined)
+  }
+
+  static searchByCPF = async (req: Request, res: Response) => {
+    const {cpf} = req.body
+
+    const client = await clientsSearchCPF(cpf)
+
+    return res.json(client)
   }
 }
