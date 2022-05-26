@@ -14,8 +14,6 @@ const listClient = async (status:string) =>{
       .where(`clients.status = ${status}`)
       .getMany();
 
-      console.log(clients)
-
     const statusClients  = clients.filter(client => client.status.toString() === status)
 
     const fomatedClients = statusClients.map(client => formatGetClientData({client}))

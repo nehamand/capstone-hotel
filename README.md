@@ -24,12 +24,13 @@ Visão geral do projeto, um pouco das tecnologias usadas.
 - [TypeORM](https://typeorm.io/)
 - [Yup](https://www.npmjs.com/package/yup)
 
-A URL base da aplicação:
+## 2. URL base da aplicação:
+
 https://api-hotel-caps.herokuapp.com/
 
 ---
 
-## 2. Diagrama ER
+## 3. Diagrama ER
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
@@ -39,43 +40,35 @@ Diagrama ER da API definindo bem as relações entre as tabelas do banco de dado
 
 ---
 
-## 3. Início Rápido
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-### 3.1. Instalando Dependências
-
-Clone o projeto em sua máquina e instale as dependências com o comando:
-
-```shell
-yarn
-```
-
-### 3.2. Variáveis de Ambiente
-
-Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
-
-```
-cp .env.example .env
-```
-
-Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
-
-### 3.3. Migrations
-
-Execute as migrations com o comando:
-
-```
-yarn typeorm migration:run -d src/data-source.ts
-```
-
----
-
 ## 4. Autenticação
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
-Por enquanto, não foi implementada autenticação.
+Faça login utilizando o endpoint /sessions, passando o cpf e a password, nesse formato:
+
+```
+{
+	"cpf": "66666666666",
+	"password": "senhaforte"
+}
+```
+
+A resposta da requisição virá nesse formato:
+
+```
+{
+	"employee": {
+		"id": "faaea679-98a8-45ca-b0b6-1cce525aa7f0",
+		"name": "Nehama",
+		"cpf": "66666666666",
+		"admin": true,
+		"status": true,
+		"created_at": "2022-05-20T13:52:34.608Z",
+		"updated_at": "2022-05-20T13:52:34.608Z"
+	},
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NTM0ODg4MTYsImV4cCI6MTY1Mzc0ODAxNiwic3ViIjoiZmFhZWE2NzktOThhOC00NWNhLWIwYjYtMWNjZTUyNWFhN2YwIn0.Y5YnEp5jz_0o1e4x1WmYv4tLd5-9etxQDyULC3LaLL8"
+}
+```
 
 ---
 
@@ -90,6 +83,7 @@ Por enquanto, não foi implementada autenticação.
   - [GET - /clients](#12-listando-clientes)
   - [GET - /clients/:id](#13-listar-clientes-por-id)
   - [PATCH - /clients/:id](#14-atualizar-clientes-por-id)
+  - [PATCH - /clients/joinbedroom/:id](#14-atualizar-clientes-por-id)
   - [DELETE - /clients/:id](#15-desativar-clientes)
 - [Quartos](#2-bedrooms)
   - [POST - /bedrooms](#21-criação-de-quartos)
@@ -132,13 +126,14 @@ O objeto clients é definido como:
 
 ### Endpoints
 
-| Método | Rota         | Descrição                                        |
-| ------ | ------------ | ------------------------------------------------ |
-| POST   | /clients     | Criação de um clientes                           |
-| GET    | /clients     | Lista todos os clientes                          |
-| GET    | /clients/:id | Lista um cliente usando seu ID como parâmetro    |
-| PATCH  | /clients/:id | atualiza um cliente usando seu ID como parâmetro |
-| DELETE | /clients/:id | desativa um cliente usando seu ID como parâmetro |
+| Método | Rota                     | Descrição                                        |
+| ------ | ------------------------ | ------------------------------------------------ |
+| POST   | /clients                 | Criação de um clientes                           |
+| GET    | /clients                 | Lista todos os clientes                          |
+| GET    | /clients/:id             | Lista um cliente usando seu ID como parâmetro    |
+| PATCH  | /clients/:id             | atualiza um cliente usando seu ID como parâmetro |
+| PATCH  | /clients/joinbedroom/:id | coloca o cliente dentro de um quarto             |
+| DELETE | /clients/:id             | desativa um cliente usando seu ID como parâmetro |
 
 ---
 
@@ -153,7 +148,7 @@ O objeto clients é definido como:
 ```
 POST /clientes
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -167,14 +162,6 @@ Content-type: application/json
   "cellphone": "68999943321"
 }
 ```
-
-### Schema de Validação com Yup:
-
-```javascript
-	em andamento
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
 
 ### Exemplo de Response:
 
@@ -199,8 +186,8 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 | Código do Erro | Descrição                    |
 | -------------- | ---------------------------- |
-| 400 Conflict   | cpf already registered       |
-| 400 Conflict   | cellphone already registered |
+| 409 Conflict   | cpf already registered       |
+| 409 Conflict   | cellphone already registered |
 
 ---
 
@@ -215,7 +202,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ```
 GET /clients
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -260,7 +247,10 @@ Vazio
 
 ### Possíveis Erros:
 
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+| Código do Erro   | Descrição       |
+| ---------------- | --------------- |
+| 401 Unauthorized | JWT is missing. |
+| 400 Bad Request  | Invalid Token   |
 
 ---
 
@@ -275,7 +265,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ```
 GET /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Host: link da api
-Authorization: None
+Authorization: `Bearer Token`
 Content-type: application/json
 ```
 
@@ -313,9 +303,11 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | clients not found. |
+| Código do Erro   | Descrição          |
+| ---------------- | ------------------ |
+| 404 Not Found    | clients not found. |
+| 401 Unauthorized | JWT is missing.    |
+| 400 Bad Request  | Invalid Token      |
 
 ---
 
@@ -330,7 +322,7 @@ Vazio
 ```
 PATCH /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -340,7 +332,7 @@ Content-type: application/json
 | --------- | ------ | ------------------------------ |
 | id        | string | Identificador único do cliente |
 
-### Corpo da Requisição:
+### Corpo da Requisição(Todos os parâmetros são opcionais):
 
 ```json
 {
@@ -359,27 +351,95 @@ Content-type: application/json
 
 ```json
 {
-  "id": "1ee98f55-c042-4672-a91e-d464b7c32e4b",
-  "name": "exampleUpdated",
-  "cpf": "00000000000",
-  "birthDate": "2000-11-11T05:00:00.000Z",
-  "cellphone": "00000000000",
-  "created_at": "2022-05-17T23:58:32.438Z",
-  "updated_at": "2022-05-17T23:58:32.438Z",
-  "status": true,
-  "hired_services": []
+ {
+	"name": "Nehama Mandelbaum",
+	"cellphone": "999999989",
+	"id": "81cfac66-0c83-463c-9202-5761648061fb",
+	"updated_at": "2022-05-26T17:11:22.577Z"
+}
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | clients not found. |
+| Código do Erro   | Descrição                |
+| ---------------- | ------------------------ |
+| 404 Not Found    | clients not found.       |
+| 400 Bad Request  | Id in params is not uuid |
+| 401 Unauthorized | JWT is missing.          |
+| 400 Bad Request  | Invalid Token            |
 
 ---
 
-### 1.5. **Desativar clientes por ID**
+### 1.5. **Colocar o cliente em um quarto**
+
+[ Voltar aos Endpoints ](#5-endpoints)
+
+### `/clients/joinbedroom/:id`
+
+### Exemplo de Request:
+
+```
+PATCH /clients/joinbedroom/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: link da api
+Authorization: `Bearer {token}`
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                      |
+| --------- | ------ | ------------------------------ |
+| id        | string | Identificador único do cliente |
+
+### Corpo da Requisição:
+
+```json
+{
+  "bedroomId": 2
+}
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+ {
+	"id": "6e48b0e4-728f-4ab5-b793-6c6b9ea6880d",
+	"name": "Nehama",
+	"cpf": "44444444444",
+	"birthDate": "1999-09-28T00:00:00.000Z",
+	"cellphone": "999999999",
+	"created_at": "2022-05-20T13:03:03.349Z",
+	"updated_at": "2022-05-26T15:00:30.968Z",
+	"status": true,
+	"bedroom": {
+		"id": 5,
+		"number": "9",
+		"floor": "2",
+		"capacity": 4,
+		"availability": false,
+		"status": true
+	}
+}
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro   | Descrição                              |
+| ---------------- | -------------------------------------- |
+| 404 Not Found    | client not found                       |
+| 400 Bad Request  | This Bedroom is already full           |
+| 400 Bad Request  | This client is already in this bedroom |
+| 401 Unauthorized | JWT is missing.                        |
+| 400 Bad Request  | Invalid Token                          |
+
+### 1.6. **Desativar clientes por ID**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -390,7 +450,7 @@ Content-type: application/json
 ```
 DELETE /clientes/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -414,9 +474,9 @@ Vazio
 
 ```json
 {
-  "message": "Service Disabled",
-  "service": {
-    "name": "example1",
+  "message": "Client Disabled",
+  "client": {
+    "name": "Nehama Mandelbaum",
     "status": false
   }
 }
@@ -424,9 +484,11 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | clients not found. |
+| Código do Erro   | Descrição          |
+| ---------------- | ------------------ |
+| 404 Not Found    | clients not found. |
+| 401 Unauthorized | JWT is missing.    |
+| 400 Bad Request  | Invalid Token      |
 
 ## 2. **Quartos**
 
@@ -464,7 +526,7 @@ O objeto bedroom é definido como:
 ```
 POST /bedrooms
 Host: link da api
-Authorization: None
+Authorization: `Bearer {Token}`
 Content-type: application/json
 ```
 
@@ -479,14 +541,6 @@ Content-type: application/json
 }
 ```
 
-### Schema de Validação com Yup:
-
-```javascript
-	em andamento
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
-
 ### Exemplo de Response:
 
 ```
@@ -495,21 +549,24 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "dd622e7a-e0df-470e-8834-91b5320ba970",
-  "number": "5",
-  "floor": "4",
-  "capacity": 5,
+  "number": 204,
+  "floor": 2,
+  "capacity": 3,
   "availability": true,
-  "created_at": "2022-05-18T00:36:36.901Z",
-  "updated_at": "2022-05-18T00:36:36.901Z",
-  "status": true,
-  "clients": []
+  "id": 6,
+  "created_at": "2022-05-26T17:19:54.984Z",
+  "updated_at": "2022-05-26T17:19:54.984Z",
+  "status": true
 }
 ```
 
 ### Possíveis Erros:
 
-Nenhum
+| Código do Erro   | Descrição                   |
+| ---------------- | --------------------------- |
+| 409 Conflict     | This bedroom already exists |
+| 401 Unauthorized | JWT is missing.             |
+| 400 Bad Request  | Invalid Token               |
 
 ---
 
@@ -524,7 +581,7 @@ Nenhum
 ```
 GET /bedrooms
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -569,7 +626,10 @@ Vazio
 
 ### Possíveis Erros:
 
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+| Código do Erro   | Descrição       |
+| ---------------- | --------------- |
+| 401 Unauthorized | JWT is missing. |
+| 400 Bad Request  | Invalid Token   |
 
 ---
 
@@ -584,7 +644,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ```
 GET /bedrooms/dd622e7a-e0df-470e-8834-91b5320ba970
 Host: link da api
-Authorization: None
+Authorization: Bearer {token}
 Content-type: application/json
 ```
 
@@ -622,9 +682,11 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | bedrooms not found. |
+| Código do Erro   | Descrição           |
+| ---------------- | ------------------- |
+| 404 Not Found    | bedrooms not found. |
+| 401 Unauthorized | JWT is missing.     |
+| 400 Bad Request  | Invalid Token       |
 
 ---
 
@@ -639,7 +701,7 @@ Vazio
 ```
 PATCH /bedrooms/dd622e7a-e0df-470e-8834-91b5320ba970
 Host: link da api
-Authorization: None
+Authorization: Bearer {token}
 Content-type: application/json
 ```
 
@@ -682,9 +744,13 @@ Content-type: application/json
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | bedrooms not found. |
+| Código do Erro   | Descrição                        |
+| ---------------- | -------------------------------- |
+| 404 Not Found    | bedrooms not found.              |
+| 409 Conflict     | This bedroom already exists      |
+| 401 Unauthorized | JWT is missing.                  |
+| 400 Bad Request  | Invalid Token                    |
+| 401 Unauthorized | Only admin can access this route |
 
 ---
 
@@ -733,9 +799,13 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | bedrooms not found. |
+| Código do Erro   | Descrição                        |
+| ---------------- | -------------------------------- |
+| 404 Not Found    | bedrooms not found.              |
+| 409 Conflict     | This bedroom already exists      |
+| 401 Unauthorized | JWT is missing.                  |
+| 400 Bad Request  | Invalid Token                    |
+| 401 Unauthorized | Only Admin can access this route |
 
 ## 3. **Serviços contratados**
 
@@ -754,12 +824,13 @@ O objeto hireds é definido como:
 
 ### Endpoints
 
-| Método | Rota        | Descrição                                      |
-| ------ | ----------- | ---------------------------------------------- |
-| POST   | /hireds     | Criação de um contratos                        |
-| GET    | /hireds     | Lista todos os contratos                       |
-| GET    | /hireds/:id | Lista um contrato usando seu ID como parâmetro |
-| DELETE | /hireds/:id | desativa contrato usando seu ID como parâmetro |
+| Método | Rota                   | Descrição                                      |
+| ------ | ---------------------- | ---------------------------------------------- |
+| POST   | /hiredservices         | Criação de um contratos                        |
+| GET    | /hiredservices         | Lista todos os contratos                       |
+| GET    | /hiredservices/:id     | Lista um contrato usando seu ID como parâmetro |
+| DELETE | /hiredservices/:id     | desativa contrato usando seu ID como parâmetro |
+| PATCH  | /hiredservices/pay/:id | Muda o status do serviço para pago             |
 
 ---
 
@@ -767,14 +838,14 @@ O objeto hireds é definido como:
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-### `/hireds`
+### `/hiredservices`
 
 ### Exemplo de Request:
 
 ```
-POST /hireds
+POST /hiredservices
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -783,19 +854,11 @@ Content-type: application/json
 ```json
 {
   "serviceId": 1,
-  "clientId": "6871647a-d117-4609-9988-7c0f3d8b8693",
+  "cpf": "37137668860",
   "start_date": "2022-05-19",
   "end_date": "2022-05-20"
 }
 ```
-
-### Schema de Validação com Yup:
-
-```javascript
-	em andamento
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
 
 ### Exemplo de Response:
 
@@ -805,26 +868,26 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": 36,
+  "id": 3,
   "paid": false,
-  "start_date": "2022-05-19T03:00:00.000Z",
-  "end_date": "2022-05-20",
-  "bedroom_number": "6",
-  "total_price": 70,
-  "created_at": "2022-05-19T18:32:58.928Z",
-  "updated_at": "2022-05-19T18:32:58.928Z",
+  "start_date": "2022-05-20T00:00:00.000Z",
+  "end_date": "2022-05-25",
+  "bedroom_number": "202",
+  "total_price": 150,
+  "created_at": "2022-05-26T17:30:17.787Z",
+  "updated_at": "2022-05-26T17:30:17.787Z",
   "status": true,
   "client": {
-    "id": "6871647a-d117-4609-9988-7c0f3d8b8693",
-    "name": "marioto",
-    "cpf": "1234567872",
+    "id": "91b7e113-ef7e-472f-bcea-352ad555e23a",
+    "name": "Alexandre Araujo",
+    "cpf": "37137668860",
     "status": true
   },
   "service": {
     "id": 1,
-    "name": "muitas coisas",
-    "price": "70.00",
-    "description": "tudo",
+    "name": "Café da manhã",
+    "price": "30.00",
+    "description": "Café da manhã com pães e bolos",
     "status": true
   }
 }
@@ -832,10 +895,12 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição            |
-| -------------- | -------------------- |
-| 404 Not Found  | clientsId not found. |
-| 404 Not Found  | ServiceID not found. |
+| Código do Erro   | Descrição          |
+| ---------------- | ------------------ |
+| 404 Not Found    | client not found.  |
+| 404 Not Found    | Service not found. |
+| 401 Unauthorized | JWT is missing.    |
+| 400 Bad Request  | Invalid Token      |
 
 ---
 
@@ -843,14 +908,14 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/hireds`
+### `/hiredservices`
 
 ### Exemplo de Request:
 
 ```
-GET /hireds
+GET /hiredservices
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -897,7 +962,10 @@ Vazio
 
 ### Possíveis Erros:
 
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+| Código do erro   | Descrição       |
+| ---------------- | --------------- |
+| 401 Unauthorized | JWT is missing. |
+| 400 Bad Request  | Invalid Token   |
 
 ---
 
@@ -905,12 +973,12 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/hireds/:id`
+### `/hiredservices/:id`
 
 ### Exemplo de Request:
 
 ```
-GET /hireds/36
+GET /hiredservices/36
 Host: link da api
 Authorization: None
 Content-type: application/json
@@ -963,9 +1031,9 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição        |
-| -------------- | ---------------- |
-| 404 Not Found  | hired not found. |
+| Código do Erro | Descrição                |
+| -------------- | ------------------------ |
+| 404 Not Found  | hiredServices not found. |
 
 ---
 
@@ -973,14 +1041,14 @@ Vazio
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/hireds/:id`
+### `/hiredservices/:id`
 
 ### Exemplo de Request:
 
 ```
-DELETE /hireds/36
+DELETE /hiredservices/36
 Host: link da api
-Authorization: None
+Authorization: `Bearer token`
 Content-type: application/json
 ```
 
@@ -1031,15 +1099,17 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição         |
-| -------------- | ----------------- |
-| 404 Not Found  | hireds not found. |
+| Código do Erro   | Descrição                |
+| ---------------- | ------------------------ |
+| 404 Not Found    | hiredservices not found. |
+| 401 Unauthorized | JWT is missing.          |
+| 400 Bad Request  | Invalid Token            |
 
 ## 4. **Empregados**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-O objeto employeers é definido como:
+O objeto employees é definido como:
 
 | Campo    | Tipo    | Descrição                          |
 | -------- | ------- | ---------------------------------- |
@@ -1065,12 +1135,12 @@ O objeto employeers é definido como:
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-### `/employeers`
+### `/employees`
 
 ### Exemplo de Request:
 
 ```
-POST /employeers
+POST /employees
 Host: link da api
 Authorization: None
 Content-type: application/json
@@ -1080,20 +1150,13 @@ Content-type: application/json
 
 ```json
 {
-  "name": "bryan",
-  "cpf": "66666666666",
-  "password": "12345678",
-  "admin": true
+  "name": "Nehama",
+  "cpf": "10101010101",
+  "password": "senhaforte",
+  "admin": true,
+  "status": true
 }
 ```
-
-### Schema de Validação com Yup:
-
-```javascript
-	em andamento
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
 
 ### Exemplo de Response:
 
@@ -1103,19 +1166,21 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "a88858e5-3352-4266-8a3c-40e61c6aa340",
-  "name": "bryan",
-  "cpf": "66666666666",
+  "id": "0c22f573-a2cc-4628-96ae-1aca9c4b7042",
+  "name": "Nehama",
+  "cpf": "10101010101",
   "admin": true,
   "status": true,
-  "created_at": "2022-05-19T22:18:00.531Z",
-  "updated_at": "2022-05-19T22:18:00.531Z"
+  "created_at": "2022-05-26T17:44:08.956Z",
+  "updated_at": "2022-05-26T17:44:08.956Z"
 }
 ```
 
 ### Possíveis Erros:
 
-Nenhum
+| Código do Erro | Descrição                             |
+| -------------- | ------------------------------------- |
+| 409 Conflict   | Employee with this cpf already exists |
 
 ---
 
@@ -1215,7 +1280,7 @@ Vazio
 
 | Código do Erro | Descrição           |
 | -------------- | ------------------- |
-| 404 Not Found  | bedrooms not found. |
+| 404 Not Found  | employee not found. |
 
 ---
 
@@ -1361,7 +1426,7 @@ O objeto services é definido como:
 ```
 POST /services
 Host: link da api
-Authorization: None
+Authorization: `Bearer {token}`
 Content-type: application/json
 ```
 
@@ -1375,14 +1440,6 @@ Content-type: application/json
 }
 ```
 
-### Schema de Validação com Yup:
-
-```javascript
-	em andamento
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
-
 ### Exemplo de Response:
 
 ```
@@ -1391,19 +1448,22 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-  "name": "Café da manha",
-  "price": 12.99,
-  "description": "Todos os dias café da manha disponivel do periodo das 07:00  ás 10:00 AM",
-  "status": true,
-  "created_at": "2022-05-19T22:18:00.531Z",
-  "updated_at": "2022-05-19T22:18:00.531Z"
+  "name": "Diária de quarto",
+  "price": 30,
+  "description": "Café da manhã com pães e bolos",
+  "id": 6,
+  "created_at": "2022-05-26T17:49:45.429Z",
+  "updated_at": "2022-05-26T17:49:45.429Z",
+  "status": true
 }
 ```
 
 ### Possíveis Erros:
 
-Nenhum
+| Código do Erro   | Descrição      |
+| ---------------- | -------------- |
+| 401 Unauthorized | JWT is missing |
+| 400 Bad Request  | Invalid Token  |
 
 ---
 
@@ -1418,7 +1478,7 @@ Nenhum
 ```
 GET /services
 Host: link da api
-Authorization: None
+Authorization: Bearer {token}
 Content-type: application/json
 ```
 
@@ -1450,7 +1510,10 @@ Vazio
 
 ### Possíveis Erros:
 
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+| Código do Erro   | Descrição      |
+| ---------------- | -------------- |
+| 401 Unauthorized | JWT is missing |
+| 400 Bad Request  | Invalid Token  |
 
 ---
 
@@ -1465,7 +1528,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ```
 GET /service/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Host: link da api
-Authorization: None
+Authorization: Bearer {token}
 Content-type: application/json
 ```
 
@@ -1501,9 +1564,11 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | services not found. |
+| Código do Erro   | Descrição           |
+| ---------------- | ------------------- |
+| 404 Not Found    | services not found. |
+| 401 Unauthorized | JWT is missing      |
+| 400 Bad Request  | Invalid Token       |
 
 ---
 
@@ -1558,9 +1623,11 @@ Content-type: application/json
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | services not found. |
+| Código do Erro   | Descrição           |
+| ---------------- | ------------------- |
+| 404 Not Found    | services not found. |
+| 401 Unauthorized | JWT is missing      |
+| 400 Bad Request  | Invalid Token       |
 
 ---
 
@@ -1575,7 +1642,7 @@ Content-type: application/json
 ```
 DELETE /service/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Host: link da api
-Authorization: None
+Authorization: Bearer {token}
 Content-type: application/json
 ```
 
@@ -1609,6 +1676,8 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | services not found. |
+| Código do Erro   | Descrição           |
+| ---------------- | ------------------- |
+| 404 Not Found    | services not found. |
+| 401 Unauthorized | JWT is missing      |
+| 400 Bad Request  | Invalid Token       |

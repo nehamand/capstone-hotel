@@ -27,7 +27,6 @@ employeeRouter.patch(
   expressYupMiddleware({schemaValidator: updateEmployeeSchema}),
   expressYupMiddleware({schemaValidator: idSchema}),
   isAdminMiddleware,
-  ensureAuth,
   employeeControllers.update
 )
 employeeRouter.delete(

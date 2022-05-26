@@ -18,7 +18,7 @@ const deleteClient = async (id: string) => {
     status,
   })
 
-  return {message: "Service Disabled", service: {name: inative.name, status}}
+  return {message: "Client Disabled", service: {name: inative.name, status}}
 }
 
 export default deleteClient

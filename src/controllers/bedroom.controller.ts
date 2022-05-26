@@ -35,9 +35,10 @@ class BedroomsController {
 
   static async update(req: Request, res: Response) {
     const {id} = req.params
-    const {capacity, availability} = req.body
+    const {capacity, availability, floor} = req.body
 
     const updateBedroom = await updateBedroomService(Number(id), {
+      floor,
       capacity,
       availability,
     })

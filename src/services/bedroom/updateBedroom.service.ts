@@ -3,6 +3,7 @@ import Bedroom from "../../models/Bedrooms"
 import {AppDataSource} from "./../../data-source"
 
 interface BedroomUpdate {
+  floor: string
   capacity: number
   availability: boolean
 }
