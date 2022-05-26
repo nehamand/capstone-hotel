@@ -20,7 +20,7 @@ class BedroomsController {
   }
 
   static async index(req: Request, res: Response) {
-    const {status} = req.query || 'true'
+    const status = req.query.status || "true"
 
     const bedrooms = await listBedroomsService(status as string)
 
