@@ -12,6 +12,7 @@ export class initialMigration1652918245403 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "hired_services" ADD CONSTRAINT "FK_e495a689d5fd0100356a2492a81" FOREIGN KEY ("clientId") REFERENCES "clients"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "hired_services" ADD CONSTRAINT "FK_bd1d4bdccb10500c02d3f3f40fe" FOREIGN KEY ("serviceId") REFERENCES "services"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "clients" ADD CONSTRAINT "FK_01bc17d52ad4dbbd52bebdf4dc7" FOREIGN KEY ("bedroomId") REFERENCES "bedrooms"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`INSERT INTO employees ("name", "password", "cpf", "admin") VALUES ('admin', '7898', '25632547898', true)`)
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
