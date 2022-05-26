@@ -12,7 +12,7 @@ import clientRouter from "./client.routes"
 const routes = Router()
 
 routes.use("/services", ensureAuth, serviceRouter)
-routes.use("/employees", employeeRouter)
+routes.use("/employees", ensureAuth, employeeRouter)
 routes.use("/sessions", sessionRouter)
 routes.use("/bedrooms", ensureAuth, bedroomRouter)
 routes.use("/hiredservices", ensureAuth, hiredService)
