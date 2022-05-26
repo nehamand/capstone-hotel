@@ -19,6 +19,7 @@ const updateEmployeeService = async (id: string, data: UpdateProps) => {
     throw new AppError("Employee not found.", 404)
   }
 
+
   if (data.password) {
     data.password = bcrypt.hashSync(data.password, 10)
   }
