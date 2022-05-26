@@ -7,7 +7,7 @@ import Service from "../../models/Services";
 import formatHiredServiceData from "../../utils/formatHiredServiceData";
 
 interface createProps {
-  clientId: string;
+  cpf: string;
   serviceId: number;
   start_date: string;
   end_date: string;
@@ -25,7 +25,7 @@ const createHiredService = async (data: createProps) => {
 
   const clientRepository = AppDataSource.getRepository(Client);
   const client = await clientRepository.findOne({
-    where: { id: data.clientId },
+    where: { cpf: data.cpf },
   });
 
   if (!service) {
