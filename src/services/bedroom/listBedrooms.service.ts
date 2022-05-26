@@ -7,9 +7,13 @@ const listBedroomsService = async (status: string) => {
 
   const bedrooms = await bedroomRepository.find();
 
-  const filteredBedrooms = bedrooms.filter(bedroom => bedroom.status.toString() === status)
+  const filteredBedrooms = bedrooms.filter(
+    (bedroom) => bedroom.status.toString() === status
+  );
 
-  const formatedBedroooms = filteredBedrooms.map((bedroom) => formatGetBedroomData({bedroom}));
+  const formatedBedroooms = filteredBedrooms.map((bedroom) =>
+    formatGetBedroomData({ bedroom })
+  );
 
   return formatedBedroooms;
 };
