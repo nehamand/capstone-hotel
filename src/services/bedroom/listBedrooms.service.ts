@@ -2,14 +2,16 @@ import Bedroom from "../../models/Bedrooms";
 import formatGetBedroomData from "../../utils/formatGetBedroomData";
 import { AppDataSource } from "./../../data-source";
 
-const listBedroomsService = async () => {
+const listBedroomsService = async (status: string) => {
   const bedroomRepository = AppDataSource.getRepository(Bedroom);
 
   const bedrooms = await bedroomRepository.find();
 
-  const filteredBedroooms = bedrooms.map((bedroom) => formatGetBedroomData({bedroom}));
+  const filteredBedrooms = bedrooms.filter(bedroom => bedroom.status.toString() === status)
 
-  return filteredBedroooms;
+  const formatedBedroooms = filteredBedrooms.map((bedroom) => formatGetBedroomData({bedroom}));
+
+  return formatedBedroooms;
 };
 
 export default listBedroomsService;

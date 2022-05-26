@@ -20,7 +20,9 @@ class BedroomsController {
   }
 
   static async index(req: Request, res: Response) {
-    const bedrooms = await listBedroomsService()
+    const {status} = req.query || 'true'
+
+    const bedrooms = await listBedroomsService(status as string)
 
     return res.json(bedrooms)
   }
