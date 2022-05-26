@@ -14,6 +14,7 @@ const formatGetClientData = ({ client }: Props) => {
     created_at: client.created_at,
     updated_at: client.updated_at,
     status: client.status,
+    bedroom_number: client.bedroom ? client.bedroom.number : null, 
     hiredServices: client.hiredServices.map((hiredService) => {
       return {
         id: hiredService.id,
