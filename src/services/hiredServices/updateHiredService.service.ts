@@ -27,6 +27,7 @@ const updateHiredService = async (id: number) => {
 
   bedroom.availability = true
   bedroom.clients = []
+  bedroom.status = false
 
   await bedroomRepostiroy.save(bedroom)
 
