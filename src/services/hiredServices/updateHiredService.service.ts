@@ -27,12 +27,14 @@ const updateHiredService = async (id: number) => {
 
   bedroom.availability = true
   bedroom.clients = []
-  bedroom.status = false
 
   await bedroomRepostiroy.save(bedroom)
 
+  hiredService.paid = true
+  hiredService.status = false
+
   const updatedHiredService = await hiredServiceRepository.save({
-    paid: true,
+    ...hiredService,
     id,
   })
 

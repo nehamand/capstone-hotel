@@ -16,7 +16,7 @@ const formatHiredServiceData = ({
     total_price: hiredService.total_price,
     created_at: hiredService.created_at,
     updated_at: hiredService.updated_at,
-    status: true,
+    status: hiredService.status,
     client: {
       id: hiredService.client.id,
       name: hiredService.client.name,
